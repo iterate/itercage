@@ -1,6 +1,9 @@
 Template.list.helpers({
   attendees: function () {
     return Attendees.find({}, {sort: {date: 1}});
+  },
+  numberOfAttendees: function () {
+    return Attendees.find({}).count();
   }
 });
 

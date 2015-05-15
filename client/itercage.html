@@ -13,13 +13,13 @@
 </body>
 
 <template name="list">
+  <a href="#" id="clearAttendees">Tøm listen</a>
+  - <strong> Antall påmeldte: {{numberOfAttendees}}</strong>
   <ul class="list-group">
   {{#each attendees}}
     <li class="list-group-item">{{name}}</li>
   {{/each}}
   </ul>
-
-  <a href="#" id="clearAttendees">Tøm listen</a>
 </template>
 
 <template name="newAttendee">
