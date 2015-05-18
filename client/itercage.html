@@ -1,25 +1,6 @@
-<head>
-  <title>Itercage</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-  <div class="container">
-    <h1>Påmelding til Cageball med Iterate</h1>
-
-    {{> newAttendee}}
-    {{> list}}
-  </div>
-</body>
-
-<template name="list">
-  <a href="#" id="clearAttendees">Tøm listen</a>
-  - <strong> Antall påmeldte: {{numberOfAttendees}}</strong>
-  <ul class="list-group">
-  {{#each attendees}}
-    <li class="list-group-item">{{name}}</li>
-  {{/each}}
-  </ul>
+<template name="default">
+  {{> newAttendee}}
+  {{> list}}
 </template>
 
 <template name="newAttendee">
@@ -27,8 +8,17 @@
     <div class="input-group">
      <input type="text" name="name" class="form-control" placeholder="Navn">
      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">Legg til</button>
+        <button class="btn btn-primary" type="submit">Legg til</button>
      </span>
     </div>
   </form>
+</template>
+
+<template name="list">
+  <strong> Antall påmeldte: {{numberOfAttendees}}</strong>
+  <ul class="list-group">
+  {{#each attendees}}
+    <li class="list-group-item">{{name}}</li>
+  {{/each}}
+  </ul>
 </template>
