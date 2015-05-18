@@ -1,7 +1,7 @@
 ServerConfig = {
   SUPERSECRET_PASSWORD: "trulsersjef1337",
   OWNER_EMAIL_ADDRESS: "henrikgs@iterate.no",
-  FROM_EMAIL_ADDRESS: "fotball@iterate.no"
+  FROM_EMAIL_ADDRESS: "itercage@gmail.com"
 }
 
 var informOwnerOfNewAttendee = function (newAttendee) {
