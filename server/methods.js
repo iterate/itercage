@@ -22,7 +22,7 @@ Meteor.methods({
 
     this.unblock();
 
-    TestMailingList.forEach(function (person) {
+    MailingList.forEach(function (person) {
       inviteToCageball(person, invitationText);
     });
   },
@@ -32,6 +32,6 @@ Meteor.methods({
       throw new Error("Wrong password");
     }
 
-    return TestMailingList;
+    return MailingList;
   }
 });
