@@ -1,0 +1,39 @@
+<template name="admin">
+
+  <div class="form-group">
+    <input type="password" class="form-control" id="password" placeholder="Passord">
+  </div>
+
+  <div class="form-group">
+<textarea class="form-control" id="invitationText" rows="7">
+Hei
+
+Bli med på cageball i dag?
+
+Meld deg på her: <a href="http://itercage.herokuapp.com">itercage.herokuapp.com</a>
+</textarea>
+  </div>
+
+  <button id="sendInvitations" class="btn btn-default">Send invitasjoner</button>
+
+  <button id="getMailinglist" class="btn btn-default">Se mailingliste</button>
+
+  <br><br>
+
+  {{> flashMessages}}
+
+  <br>
+
+  {{> mailinglist}}
+
+</template>
+
+<template name="mailinglist">
+  {{#if mailinglist}}
+    <ul>
+      {{#each mailinglist}}
+        <li>{{name}} &lt;{{email}}&gt;</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</template>

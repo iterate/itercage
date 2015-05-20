@@ -9,3 +9,4 @@ less
 mizzao:bootstrap-3
 iron:router
 email
+mrt:flash-messages
