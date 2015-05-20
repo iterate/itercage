@@ -1,6 +1,6 @@
 ServerConfig = {
   SUPAH_SECRET_PASSWORD: "trulsersjef1337",
-  OWNER_EMAIL_ADDRESS: "henrikgs@iterate.no",
+  OWNER_EMAIL_ADDRESS: "trulsske@iterate.no",
   FROM_EMAIL_ADDRESS: "itercage@gmail.com"
 }
 
