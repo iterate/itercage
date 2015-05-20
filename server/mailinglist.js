@@ -1,5 +1,8 @@
 TestMailingList = [
   {
+    name: "Truls Skeie",
+    email: "trulsske@iterate.no"
+  }, {
     name: "Henrik Glasø Skifjeld",
     email: "henrik@iterate.no"
   }
