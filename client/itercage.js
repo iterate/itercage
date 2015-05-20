@@ -7,18 +7,6 @@ Template.list.helpers({
   }
 });
 
-Template.list.events({
-  'click a#clearAttendees': function (event) {
-    event.preventDefault && event.preventDefault();
-
-    var password = $('input[name=name]').val();
-
-    Meteor.call('clearAttendees', password, function () {
-      $('input[name=name]').val("");
-    });
-  }
-});
-
 Template.newAttendee.events({
   'submit form[name=newAttendee]': function (event, template) {
     event.preventDefault && event.preventDefault();
