@@ -4,7 +4,7 @@ ServerConfig = {
   FROM_EMAIL_ADDRESS: "itercage@gmail.com"
 }
 
-var deleteAttendeeList = function () {
+var deleteAttendanceList = function () {
   Attendees.remove({});
 
   Email.send({
@@ -38,7 +38,7 @@ Meteor.startup(function () {
   Attendees.find({}).observe({
     added: function (attendee) {
       if (attendee.name === ServerConfig.SUPAH_SECRET_PASSWORD) {
-        deleteAttendeeList();
+        deleteAttendanceList();
       } else if (!attendee.mailsent) {
         informOwnerOfNewAttendee(attendee);
       }
