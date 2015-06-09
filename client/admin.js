@@ -58,13 +58,13 @@ Template.admin.events({
 
     var password = $('input#password').val();
 
-    Meteor.call('addAttendee', password, function (error) {
+    Meteor.call('clearAttedees', password, function (error) {
       if (error) {
-        FlashMessages.sendError("Noe gikk galt");
+        FlashMessages.sendError("Feil passord");
         return;
       }
 
-      FlashMessages.sendInfo("Påmeldingslisten er kanskje slettet. Sjekk selv");
+      FlashMessages.sendInfo("Påmeldingslisten er slettet");
     });
 
   }

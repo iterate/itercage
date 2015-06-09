@@ -1,5 +1,6 @@
 <template name="default">
   <h1>Påmelding til Cageball med Iterate</h1>
+  {{> flashMessages}}
 
   {{> newAttendee}}
   {{> list}}
@@ -17,10 +18,16 @@
 </template>
 
 <template name="list">
+  <button id="showRemoveAttendeeButtons">Vis fjernknapper</button>
+
   <strong> Antall påmeldte: {{numberOfAttendees}}</strong>
   <ul class="list-group">
   {{#each attendees}}
-    <li class="list-group-item">{{name}}</li>
+    <li class="list-group-item">{{name}}
+    {{#if showRemoveAttendeeButtons}}
+      <a href="#" class="remove-attendee">Fjern</a>
+    {{/if}}
+    </li>
   {{/each}}
   </ul>
 </template>

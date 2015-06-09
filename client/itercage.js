@@ -4,6 +4,9 @@ Template.list.helpers({
   },
   numberOfAttendees: function () {
     return Attendees.find({}).count();
+  },
+  showRemoveAttendeeButtons: function () {
+    return Session.get('showRemoveAttendeeButtons');
   }
 });
 
@@ -18,5 +21,23 @@ Template.newAttendee.events({
         template.find('input[name=name]').value = "";
       }
     });
+  }
+});
+
+Template.list.events({
+  'click a.remove-attendee': function (event, template) {
+    event.preventDefault && event.preventDefault();
+
+    var password = prompt("Skriv passord");
+
+    Meteor.call('removeAttendee', password, this._id, function (error) {
+      if (error) {
+        FlashMessages.sendError("Feil passord");
+      }
+    });
+  },
+
+  'click button#showRemoveAttendeeButtons': function () {
+    Session.set('showRemoveAttendeeButtons', !Session.get('showRemoveAttendeeButtons'));
   }
 });

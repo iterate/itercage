@@ -4,25 +4,16 @@ ServerConfig = {
   FROM_EMAIL_ADDRESS: "itercage@gmail.com"
 }
 
-var deleteAttendanceList = function () {
-  Attendees.remove({});
-
-  Email.send({
-    to: ServerConfig.FROM_EMAIL_ADDRESS,
-    from: ServerConfig.FROM_EMAIL_ADDRESS,
-    subject: "[itercage] Påmeldingsliste slettet",
-    text: "Påmeldingsliste slettet"
-  });
-}
-
 var informOwnerOfNewAttendee = function (newAttendee) {
   var numberOfAttendees = Attendees.find({}).count();
+
+  var text = newAttendee.name + " (" + numberOfAttendees + " påmeldte)";
 
   Email.send({
     to: ServerConfig.OWNER_EMAIL_ADDRESS,
     from: ServerConfig.FROM_EMAIL_ADDRESS,
-    subject: "[itercage] " + numberOfAttendees + " påmeldte",
-    text: newAttendee.name + " melte seg på"
+    subject: "[itercage] Ny påmelding",
+    text: text
   });
 
   Attendees.update(
@@ -37,9 +28,7 @@ Meteor.startup(function () {
 
   Attendees.find({}).observe({
     added: function (attendee) {
-      if (attendee.name === ServerConfig.SUPAH_SECRET_PASSWORD) {
-        deleteAttendanceList();
-      } else if (!attendee.mailsent) {
+      if (!attendee.mailsent) {
         informOwnerOfNewAttendee(attendee);
       }
     }

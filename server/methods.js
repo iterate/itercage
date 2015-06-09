@@ -33,5 +33,28 @@ Meteor.methods({
     }
 
     return MailingList;
-  }
+  },
+
+  removeAttendee: function (password, attendeeId) {
+    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
+      throw new Error("Wrong password");
+    }
+
+    Attendees.remove({_id: attendeeId});
+  },
+
+  clearAttedees: function (password) {
+    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
+      throw new Error("Wrong password");
+    }
+
+    Attendees.remove({});
+
+    Email.send({
+      to: ServerConfig.FROM_EMAIL_ADDRESS,
+      from: ServerConfig.FROM_EMAIL_ADDRESS,
+      subject: "[itercage] Påmeldingsliste slettet",
+      text: "Påmeldingsliste slettet"
+    });
+  },
 });
