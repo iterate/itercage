@@ -34,4 +34,10 @@ Meteor.startup(function () {
     }
   });
 
+  MailingListData.forEach(function (item) {
+    if (!MailingList.findOne({email: item.email})) {
+      MailingList.insert(item);
+    }
+  });
+
 });

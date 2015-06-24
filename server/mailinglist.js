@@ -1,14 +1,6 @@
-TestMailingList = [
-  {
-    name: "Truls Skeie",
-    email: "trulsske@iterate.no"
-  }, {
-    name: "Henrik Glasø Skifjeld",
-    email: "henrik@iterate.no"
-  }
-];
+MailingList = new Meteor.Collection('mailinglist');
 
-MailingList = [
+MailingListData = [
   {
     name: "Truls Skeie",
     email: "trulsske@iterate.no"

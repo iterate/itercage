@@ -70,6 +70,37 @@ Template.admin.events({
   }
 });
 
+Template.mailinglist.events({
+  'submit form#newMailingListPerson': function (event) {
+    event.preventDefault && event.preventDefault();
+
+    var password = $('input#password').val();
+    var name = $('input#newMailingListPersonName').val();
+    var email = $('input#newMailingListPersonEmail').val();
+
+    if (!name || !email) {
+      FlashMessages.sendError("Mangler navn eller epost");
+      return;
+    }
+
+    Meteor.call('addToMailinglist', password, name, email, function (error) {
+      if (error) {
+        FlashMessages.sendError("Feil passord");
+        return;
+      }
+
+      $('input#newMailingListPersonName').val('');
+      $('input#newMailingListPersonEmail').val('');
+
+      Meteor.call('getMailinglist', password, function (error, result) {
+        if (!error) {
+          Session.set('mailinglist', result);
+        }
+      });
+    });
+  }
+});
+
 Template.mailinglist.helpers({
   mailinglist: function () {
     return Session.get('mailinglist');

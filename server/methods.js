@@ -22,7 +22,7 @@ Meteor.methods({
 
     this.unblock();
 
-    MailingList.forEach(function (person) {
+    MailingListData.forEach(function (person) {
       inviteToCageball(person, invitationText);
     });
   },
@@ -32,7 +32,18 @@ Meteor.methods({
       throw new Error("Wrong password");
     }
 
-    return MailingList;
+    return MailingList.find({}).fetch();
+  },
+
+  addToMailinglist: function (password, name, email) {
+    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
+      throw new Error("Wrong password");
+    }
+
+    MailingList.insert({
+      name: name,
+      email: email
+    });
   },
 
   removeAttendee: function (password, attendeeId) {
