@@ -1,6 +1,7 @@
+MailingList = new Meteor.Collection('mailinglist');
+
 ServerConfig = new Meteor.Collection('config');
 
-MailingList = new Meteor.Collection('mailinglist');
 
 Config = {
   get: function (key) {

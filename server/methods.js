@@ -46,6 +46,14 @@ Meteor.methods({
     });
   },
 
+  removeFromMailinglist: function (password, personId) {
+    verifyPassword(password);
+
+    MailingList.remove({
+      _id: personId
+    });
+  },
+
   removeAttendee: function (password, attendeeId) {
     verifyPassword(password);
 
