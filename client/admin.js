@@ -96,6 +96,29 @@ Template.mailinglist.events({
         }
       });
     });
+  },
+
+  'click a.remove-person': function (event) {
+    event.preventDefault && event.preventDefault();
+
+    if (!confirm("Sikker på at du vil slette " + this.name + " fra mailinglisten?")) {
+      return;
+    }
+
+    var password = $('input#password').val();
+
+    Meteor.call('removeFromMailinglist', password, this._id, function (error) {
+      if (error) {
+        FlashMessages.sendError("Feil passord");
+        return;
+      }
+
+      Meteor.call('getMailinglist', password, function (error, result) {
+        if (!error) {
+          Session.set('mailinglist', result);
+        }
+      });
+    });
   }
 });
 
