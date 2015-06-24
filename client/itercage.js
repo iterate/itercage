@@ -10,9 +10,17 @@ Template.list.helpers({
   }
 });
 
+Template.newAttendee.helpers({
+  addingAttendee: function () {
+    return Session.get('addingAttendee');
+  }
+});
+
 Template.newAttendee.events({
   'submit form[name=newAttendee]': function (event, template) {
     event.preventDefault && event.preventDefault();
+
+    Session.set('addingAttendee', true);
 
     var name = template.find('input[name=name]').value;
 
@@ -20,6 +28,8 @@ Template.newAttendee.events({
       if (!error) {
         template.find('input[name=name]').value = "";
       }
+
+      Session.set('addingAttendee', false);
     });
   }
 });

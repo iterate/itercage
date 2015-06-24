@@ -22,7 +22,7 @@ Meteor.methods({
 
     this.unblock();
 
-    MailingListData.forEach(function (person) {
+    MailingList.find({}).fetch().forEach(function (person) {
       inviteToCageball(person, invitationText);
     });
   },

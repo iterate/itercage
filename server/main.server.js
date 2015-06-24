@@ -7,12 +7,13 @@ ServerConfig = {
 var informOwnerOfNewAttendee = function (newAttendee) {
   var numberOfAttendees = Attendees.find({}).count();
 
+  var date = moment().format('DD-MM-YYYY');
   var text = newAttendee.name + " (" + numberOfAttendees + " påmeldte)";
 
   Email.send({
     to: ServerConfig.OWNER_EMAIL_ADDRESS,
     from: ServerConfig.FROM_EMAIL_ADDRESS,
-    subject: "[itercage] Ny påmelding",
+    subject: "[itercage] Ny påmelding (" + date + ")",
     text: text
   });
 

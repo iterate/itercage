@@ -63,8 +63,6 @@ Template.admin.events({
         FlashMessages.sendError("Feil passord");
         return;
       }
-
-      FlashMessages.sendInfo("Påmeldingslisten er slettet");
     });
 
   }
