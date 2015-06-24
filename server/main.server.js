@@ -1,9 +1,3 @@
-ServerConfig = {
-  SUPAH_SECRET_PASSWORD: "trulsersjef1337",
-  OWNER_EMAIL_ADDRESS: "trulsske@iterate.no",
-  FROM_EMAIL_ADDRESS: "itercage@gmail.com"
-}
-
 var informOwnerOfNewAttendee = function (newAttendee) {
   var numberOfAttendees = Attendees.find({}).count();
 
@@ -11,8 +5,8 @@ var informOwnerOfNewAttendee = function (newAttendee) {
   var text = newAttendee.name + " (" + numberOfAttendees + " påmeldte)";
 
   Email.send({
-    to: ServerConfig.OWNER_EMAIL_ADDRESS,
-    from: ServerConfig.FROM_EMAIL_ADDRESS,
+    to: Config.get('OWNER_EMAIL_ADDRESS'),
+    from: Config.get('FROM_EMAIL_ADDRESS'),
     subject: "[itercage] Ny påmelding (" + date + ")",
     text: text
   });
@@ -40,5 +34,9 @@ Meteor.startup(function () {
       MailingList.insert(item);
     }
   });
+
+  Config.set('SUPAH_SECRET_PASSWORD', 'trulsersjef1337');
+  Config.set('OWNER_EMAIL_ADDRESS', 'trulsske@iterate.no');
+  Config.set('FROM_EMAIL_ADDRESS', 'itercage@gmail.com');
 
 });

@@ -8,17 +8,21 @@ var guid = function () {
 var inviteToCageball = function (person, invitationText) {
   Email.send({
     to: person.email,
-    from: ServerConfig.FROM_EMAIL_ADDRESS,
+    from: Config.get('FROM_EMAIL_ADDRESS'),
     subject: "[itercage] Påmelding til Cageball",
     text: invitationText
   });
 }
 
+var verifyPassword = function (password) {
+  if (password !== Config.get('SUPAH_SECRET_PASSWORD')) {
+    throw new Error("Wrong password");
+  }
+}
+
 Meteor.methods({
   sendInvitations: function (password, invitationText) {
-    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
-      throw new Error("Wrong password");
-    }
+    verifyPassword(password);
 
     this.unblock();
 
@@ -28,17 +32,13 @@ Meteor.methods({
   },
 
   getMailinglist: function (password) {
-    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
-      throw new Error("Wrong password");
-    }
+    verifyPassword(password);
 
     return MailingList.find({}).fetch();
   },
 
   addToMailinglist: function (password, name, email) {
-    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
-      throw new Error("Wrong password");
-    }
+    verifyPassword(password);
 
     MailingList.insert({
       name: name,
@@ -47,23 +47,19 @@ Meteor.methods({
   },
 
   removeAttendee: function (password, attendeeId) {
-    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
-      throw new Error("Wrong password");
-    }
+    verifyPassword(password);
 
     Attendees.remove({_id: attendeeId});
   },
 
   clearAttedees: function (password) {
-    if (password !== ServerConfig.SUPAH_SECRET_PASSWORD) {
-      throw new Error("Wrong password");
-    }
+    verifyPassword(password);
 
     Attendees.remove({});
 
     Email.send({
-      to: ServerConfig.FROM_EMAIL_ADDRESS,
-      from: ServerConfig.FROM_EMAIL_ADDRESS,
+      to: Config.get('FROM_EMAIL_ADDRESS'),
+      from: Config.get('FROM_EMAIL_ADDRESS'),
       subject: "[itercage] Påmeldingsliste slettet",
       text: "Påmeldingsliste slettet"
     });
