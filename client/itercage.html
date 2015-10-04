@@ -1,5 +1,5 @@
 <template name="default">
-  <h1>Påmelding til Cageball med Iterate</h1>
+  <h1>Iterate Cageball</h1>
   {{> flashMessages}}
 
   {{> newAttendee}}
@@ -9,7 +9,7 @@
 <template name="newAttendee">
   <form role="form" name="newAttendee" class="new-attendee">
     <div class="input-group">
-     <input type="text" name="name" class="form-control" placeholder="Navn">
+     <input type="text" name="name" class="form-control" placeholder="Navn" disabled="{{addingAttendee}}">
      <span class="input-group-btn">
         <button class="btn btn-primary" type="submit" disabled="{{addingAttendee}}">Legg til</button>
      </span>
@@ -18,7 +18,17 @@
 </template>
 
 <template name="list">
-  <strong> Antall påmeldte: {{numberOfAttendees}}</strong>
+  {{#if numberOfAttendees}}
+    <div class="progress">
+      <div class="progress-bar progress-bar-{{mode}}" style="width: {{percent}}%">
+        <strong>Påmeldte: {{numberOfAttendees}}</strong>
+      </div>
+    </div>
+  {{else}}
+    <strong>Det er ingen påmeldte</strong>
+  {{/if}}
+
+
   <ul class="list-group">
   {{#each attendees}}
     <li class="list-group-item">{{name}}

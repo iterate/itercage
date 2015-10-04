@@ -17,7 +17,7 @@ var informOwnerOfNewAttendee = function (newAttendee) {
           'mailsent': true
       }
     });
-}
+};
 
 Meteor.startup(function () {
 
@@ -28,15 +28,5 @@ Meteor.startup(function () {
       }
     }
   });
-
-  MailingListData.forEach(function (item) {
-    if (!MailingList.findOne({email: item.email})) {
-      MailingList.insert(item);
-    }
-  });
-
-  Config.set('SUPAH_SECRET_PASSWORD', 'trulsersjef1337');
-  Config.set('OWNER_EMAIL_ADDRESS', 'trulsske@iterate.no');
-  Config.set('FROM_EMAIL_ADDRESS', 'itercage@gmail.com');
 
 });

@@ -3,10 +3,25 @@ Template.list.helpers({
     return Attendees.find({}, {sort: {date: 1}});
   },
   numberOfAttendees: function () {
-    return Attendees.find({}).count();
+    return numberOfAttendees();
   },
   showRemoveAttendeeButtons: function () {
     return Session.get('showRemoveAttendeeButtons');
+  },
+  mode: function () {
+    var number = numberOfAttendees();
+    var mode = 'danger';
+    if (number > 5) {
+      mode = 'warning';
+    }
+    if (number > 7) {
+      mode = 'success';
+    }
+
+    return mode;
+  },
+  percent: function () {
+    return numberOfAttendees() * 10;
   }
 });
 
@@ -27,6 +42,8 @@ Template.newAttendee.events({
     Meteor.call('addAttendee', name, function (error) {
       if (!error) {
         template.find('input[name=name]').value = "";
+      } else {
+        FlashMessages.sendError("For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.");
       }
 
       Session.set('addingAttendee', false);
