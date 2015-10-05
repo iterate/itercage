@@ -24,7 +24,9 @@ Meteor.startup(function () {
   Attendees.find({}).observe({
     added: function (attendee) {
       if (!attendee.mailsent) {
-        informOwnerOfNewAttendee(attendee);
+        try {
+          informOwnerOfNewAttendee(attendee);
+        } catch (e) { /* Ignore not sent */ }
       }
     }
   });

@@ -11,3 +11,4 @@ iron:router
 email
 mrt:flash-messages
 rzymek:moment-locale-nb
+sacha:spin

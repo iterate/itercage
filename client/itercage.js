@@ -1,3 +1,9 @@
+Template.default.helpers({
+  loading: function () {
+    return !Session.get('attendeesLoaded');
+  }
+});
+
 Template.list.helpers({
   attendees: function () {
     return Attendees.find({}, {sort: {date: 1}});
