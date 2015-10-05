@@ -6,31 +6,34 @@ FlashMessages.configure({
 
 Template.admin.helpers({
   sendingInvitations: function () {
-    return Session.get("sendingInvitations");
+    return Session.get('sendingInvitations');
+  },
+  storedPassword: function () {
+    return Session.get('storedPassword') || '';
   }
-})
+});
 
 Template.admin.events({
   'click button#sendInvitations': function (event) {
     event.preventDefault && event.preventDefault();
 
-    if (!confirm("Sikker på at du vil sende ut invitasjonseposter?")) {
+    if (!confirm('Sikker på at du vil sende ut invitasjonseposter?')) {
       return;
     }
 
     var password = $('input#password').val();
     var invitationText = $('textarea#invitationText').val();
 
-    Session.set("sendingInvitations", true);
+    Session.set('sendingInvitations', true);
 
     Meteor.call('sendInvitations', password, invitationText, function (error) {
       if (error) {
-        FlashMessages.sendError("Feil passord eller noe galt med mailsending");
+        FlashMessages.sendError('Feil passord eller noe galt med mailsending');
       } else {
-        FlashMessages.sendSuccess("Invitasjoner sendt ut");
+        FlashMessages.sendSuccess('Invitasjoner sendt ut');
       }
 
-      Session.set("sendingInvitations", false);
+      Session.set('sendingInvitations', false);
     });
   },
 
@@ -41,7 +44,7 @@ Template.admin.events({
 
     Meteor.call('getMailinglist', password, function (error, result) {
       if (error) {
-        FlashMessages.sendError("Feil passord");
+        FlashMessages.sendError('Feil passord');
         return;
       }
 
@@ -52,7 +55,7 @@ Template.admin.events({
   'click button#clearAttendees': function (event) {
     event.preventDefault && event.preventDefault();
 
-    if (!confirm("Sikker på at du vil slette påmeldingslisten?")) {
+    if (!confirm('Sikker på at du vil slette påmeldingslisten?')) {
       return;
     }
 
@@ -60,12 +63,15 @@ Template.admin.events({
 
     Meteor.call('clearAttedees', password, function (error) {
       if (error) {
-        FlashMessages.sendError("Feil passord");
+        FlashMessages.sendError('Feil passord');
         return;
       }
     });
+  },
 
-  }
+  'blur #password': function (event) {
+      Session.setPersistent('storedPassword', event.target.value);
+    }
 });
 
 Template.mailinglist.events({
@@ -77,13 +83,13 @@ Template.mailinglist.events({
     var email = $('input#newMailingListPersonEmail').val();
 
     if (!name || !email) {
-      FlashMessages.sendError("Mangler navn eller epost");
+      FlashMessages.sendError('Mangler navn eller epost');
       return;
     }
 
     Meteor.call('addToMailinglist', password, name, email, function (error) {
       if (error) {
-        FlashMessages.sendError("Feil passord");
+        FlashMessages.sendError('Feil passord');
         return;
       }
 
@@ -101,7 +107,7 @@ Template.mailinglist.events({
   'click a.remove-person': function (event) {
     event.preventDefault && event.preventDefault();
 
-    if (!confirm("Sikker på at du vil slette " + this.name + " fra mailinglisten?")) {
+    if (!confirm('Sikker på at du vil slette ' + this.name + ' fra mailinglisten?')) {
       return;
     }
 
@@ -109,7 +115,7 @@ Template.mailinglist.events({
 
     Meteor.call('removeFromMailinglist', password, this._id, function (error) {
       if (error) {
-        FlashMessages.sendError("Feil passord");
+        FlashMessages.sendError('Feil passord');
         return;
       }
 
