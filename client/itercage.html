@@ -1,9 +1,15 @@
 <template name="default">
-  <h1>Iterate Cageball</h1>
+  <h1 class="title">Itercage</h1>
+  <p class="subtitle">Cageball Nydalen - Mandager kl. 20:45</p>
+
   {{> flashMessages}}
 
-  {{> newAttendee}}
-  {{> list}}
+  {{#if loading}}
+    {{> spinner}}
+  {{else}}
+    {{> newAttendee}}
+    {{> list}}
+  {{/if}}
 </template>
 
 <template name="newAttendee">
@@ -11,7 +17,7 @@
     <div class="input-group">
      <input type="text" name="name" class="form-control" placeholder="Navn" disabled="{{addingAttendee}}">
      <span class="input-group-btn">
-        <button class="btn btn-primary" type="submit" disabled="{{addingAttendee}}">Legg til</button>
+        <button class="btn btn-primary" type="submit" disabled="{{addingAttendee}}">Meld meg på</button>
      </span>
     </div>
   </form>
