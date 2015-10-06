@@ -1,6 +1,6 @@
 <template name="default">
   <h1 class="title">Itercage</h1>
-  <p class="subtitle">Cageball Nydalen - Mandager kl. 20:45</p>
+  <p class="subtitle">Cageball Nydalen - Mandager kl. 20:40</p>
 
   {{> flashMessages}}
 
@@ -37,7 +37,7 @@
 
   <ul class="list-group">
   {{#each attendees}}
-    <li class="list-group-item">{{name}}
+    <li class="list-group-item {{newItem}}">{{name}}
     {{#if showRemoveAttendeeButtons}}
       <a href="#" class="remove-attendee">Fjern</a>
     {{/if}}

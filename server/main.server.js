@@ -21,6 +21,13 @@ var informOwnerOfNewAttendee = function (newAttendee) {
 
 Meteor.startup(function () {
 
+  SSR.compileTemplate('inviteTemplate', Assets.getText('inviteTemplate.html'));
+  Template.inviteTemplate.helpers({
+      transformNewline: function(text) {
+          return new Spacebars.SafeString(text.replace(/(\r\n|\n|\r)/g, "<br>"));
+      }
+  });
+
   Attendees.find({}).observe({
     added: function (attendee) {
       if (!attendee.mailsent) {

@@ -6,12 +6,23 @@ var guid = function () {
 }
 
 var inviteToCageball = function (person, invitationText) {
+  var hash = guid();
+  var name = person.name.split(' ')[0];
+
+  var html = SSR.render('inviteTemplate', {
+    name: name,
+    invitationText: invitationText,
+    hash: hash
+  });
+
   Email.send({
     to: person.email,
     from: Config.get('FROM_EMAIL_ADDRESS'),
     subject: "[itercage] Påmelding til Cageball",
-    text: invitationText
+    html: html
   });
+
+  Invites.insert({name: name, hash: hash, date: new Date()});
 }
 
 var verifyPassword = function (password) {
@@ -54,6 +65,16 @@ Meteor.methods({
     });
   },
 
+  addAttendeeByHash: function (hash) {
+    var invite = Invites.findOne({hash: hash});
+
+    if (invite) {
+      Meteor.call('addAttendee', invite.name);
+
+      Invites.remove({hash: hash});
+    }
+  },
+
   removeAttendee: function (password, attendeeId) {
     verifyPassword(password);
 
@@ -64,6 +85,7 @@ Meteor.methods({
     verifyPassword(password);
 
     Attendees.remove({});
+    Invites.remove({});
 
     Email.send({
       to: Config.get('FROM_EMAIL_ADDRESS'),

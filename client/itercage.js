@@ -1,3 +1,5 @@
+var FIVE_SECONDS = 5000;
+
 Template.default.helpers({
   loading: function () {
     return !Session.get('attendeesLoaded');
@@ -28,6 +30,11 @@ Template.list.helpers({
   },
   percent: function () {
     return numberOfAttendees() * 10;
+  },
+  newItem: function () {
+    if ((new Date().getTime() - this.date.getTime()) < FIVE_SECONDS) {
+      return 'new-item';
+    }
   }
 });
 

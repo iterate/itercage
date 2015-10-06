@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-  max-width: 720px;
+  max-width: 780px;
 }
 
 .title {
@@ -34,4 +34,28 @@ body {
 
 .hidden {
   display: none;
+}
+
+.new-item {
+  -webkit-animation: color-transisition 10s ease;
+  -moz-animation: color-transisition 10s ease;
+  -o-animation: color-transisition 10s ease;
+  animation: color-transisition 10s ease;
+}
+
+@-webkit-keyframes color-transisition {
+  from { background-color: #5cb85c; }
+  to { opacity: #fff; }
+}
+@-moz-keyframes color-transisition {
+  from { background-color: #5cb85c; }
+  to { opacity: #fff; }
+}
+@-o-keyframes color-transisition {
+  from { background-color: #5cb85c; }
+  to { opacity: #fff; }
+}
+@keyframes color-transisition {
+  from { background-color: #5cb85c; }
+  to { opacity: #fff; }
 }
