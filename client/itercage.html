@@ -34,11 +34,10 @@
     <strong>Det er ingen påmeldte</strong>
   {{/if}}
 
-
   <ul class="list-group">
   {{#each attendees}}
     <li class="list-group-item {{newItem}}">{{name}}
-    {{#if showRemoveAttendeeButtons}}
+    {{#if ../showRemoveAttendeeButtons}}
       <a href="#" class="remove-attendee">Fjern</a>
     {{/if}}
     </li>

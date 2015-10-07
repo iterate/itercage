@@ -13,9 +13,6 @@ Template.list.helpers({
   numberOfAttendees: function () {
     return numberOfAttendees();
   },
-  showRemoveAttendeeButtons: function () {
-    return Session.get('showRemoveAttendeeButtons');
-  },
   mode: function () {
     var number = numberOfAttendees();
     var mode = 'danger';
