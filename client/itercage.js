@@ -53,10 +53,14 @@ Template.newAttendee.events({
       if (!error) {
         template.find('input[name=name]').value = "";
       } else {
+        FlashMessages.clear();
         FlashMessages.sendError("For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.");
       }
 
       Session.set('addingAttendee', false);
+      Meteor.setTimeout(function () {
+        $('input[name=name]').focus();
+      });
     });
   }
 });
