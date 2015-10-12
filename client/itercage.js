@@ -51,10 +51,10 @@ Template.newAttendee.events({
 
     Meteor.call('addAttendee', name, function (error) {
       if (!error) {
-        template.find('input[name=name]').value = "";
+        template.find('input[name=name]').value = '';
       } else {
         FlashMessages.clear();
-        FlashMessages.sendError("For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.");
+        FlashMessages.sendError('For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.');
       }
 
       Session.set('addingAttendee', false);

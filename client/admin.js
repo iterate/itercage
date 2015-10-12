@@ -118,7 +118,7 @@ Template.list.events({
 
     Meteor.call('removeAttendee', Session.get('storedPassword'), this._id, function (error) {
       if (error) {
-        FlashMessages.sendError("Feil passord");
+        FlashMessages.sendError('Feil passord');
       }
     });
   }
