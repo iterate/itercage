@@ -21,12 +21,11 @@ Template.admin.events({
       return;
     }
 
-    var password = $('input#password').val();
     var invitationText = $('textarea#invitationText').val();
 
     Session.set('sendingInvitations', true);
 
-    Meteor.call('sendInvitations', password, invitationText, function (error) {
+    Meteor.call('sendInvitations', Session.get('storedPassword'), invitationText, function (error) {
       if (error) {
         FlashMessages.sendError('Feil passord eller noe galt med mailsending');
       } else {
@@ -40,9 +39,7 @@ Template.admin.events({
   'click button#getMailinglist': function (event) {
     event.preventDefault && event.preventDefault();
 
-    var password = $('input#password').val();
-
-    Meteor.call('getMailinglist', password, function (error, result) {
+    Meteor.call('getMailinglist', Session.get('storedPassword'), function (error, result) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
@@ -59,9 +56,7 @@ Template.admin.events({
       return;
     }
 
-    var password = $('input#password').val();
-
-    Meteor.call('clearAttedees', password, function (error) {
+    Meteor.call('clearAttedees', Session.get('storedPassword'), function (error) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
@@ -78,7 +73,6 @@ Template.mailinglist.events({
   'submit form#newMailingListPerson': function (event) {
     event.preventDefault && event.preventDefault();
 
-    var password = $('input#password').val();
     var name = $('input#newMailingListPersonName').val();
     var email = $('input#newMailingListPersonEmail').val();
 
@@ -87,7 +81,7 @@ Template.mailinglist.events({
       return;
     }
 
-    Meteor.call('addToMailinglist', password, name, email, function (error) {
+    Meteor.call('addToMailinglist', Session.get('storedPassword'), name, email, function (error) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
@@ -96,7 +90,7 @@ Template.mailinglist.events({
       $('input#newMailingListPersonName').val('');
       $('input#newMailingListPersonEmail').val('');
 
-      Meteor.call('getMailinglist', password, function (error, result) {
+      Meteor.call('getMailinglist', Session.get('storedPassword'), function (error, result) {
         if (!error) {
           Session.set('mailinglist', result);
         }
@@ -111,19 +105,29 @@ Template.mailinglist.events({
       return;
     }
 
-    var password = $('input#password').val();
-
-    Meteor.call('removeFromMailinglist', password, this._id, function (error) {
+    Meteor.call('removeFromMailinglist', Session.get('storedPassword'), this._id, function (error) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
       }
 
-      Meteor.call('getMailinglist', password, function (error, result) {
+      Meteor.call('getMailinglist', Session.get('storedPassword'), function (error, result) {
         if (!error) {
           Session.set('mailinglist', result);
         }
       });
+    });
+  }
+});
+
+Template.list.events({
+  'click a.remove-attendee': function (event, template) {
+    event.preventDefault && event.preventDefault();
+
+    Meteor.call('removeAttendee', Session.get('storedPassword'), this._id, function (error) {
+      if (error) {
+        FlashMessages.sendError("Feil passord");
+      }
     });
   }
 });
