@@ -28,8 +28,8 @@ Template.list.helpers({
   percent: function () {
     return numberOfAttendees() * 10;
   },
-  newItem: function () {
-    if ((new Date().getTime() - this.date.getTime()) < FIVE_SECONDS) {
+  newItem: function (date) {
+    if ((new Date().getTime() - date.getTime()) < FIVE_SECONDS) {
       return 'new-item';
     }
   }
@@ -61,18 +61,6 @@ Template.newAttendee.events({
       Meteor.setTimeout(function () {
         $('input[name=name]').focus();
       });
-    });
-  }
-});
-
-Template.list.events({
-  'click a.remove-attendee': function (event, template) {
-    event.preventDefault && event.preventDefault();
-
-    Meteor.call('removeAttendee', password, this._id, function (error) {
-      if (error) {
-        FlashMessages.sendError("Feil passord");
-      }
     });
   }
 });

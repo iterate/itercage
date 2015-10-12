@@ -55,6 +55,8 @@ Meteor.methods({
       name: name,
       email: email
     });
+
+    return MailingList.find({}).fetch();
   },
 
   removeFromMailinglist: function (password, personId) {
@@ -63,6 +65,8 @@ Meteor.methods({
     MailingList.remove({
       _id: personId
     });
+
+    return MailingList.find({}).fetch();
   },
 
   addAttendeeByHash: function (hash) {

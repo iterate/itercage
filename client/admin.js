@@ -81,7 +81,7 @@ Template.mailinglist.events({
       return;
     }
 
-    Meteor.call('addToMailinglist', Session.get('storedPassword'), name, email, function (error) {
+    Meteor.call('addToMailinglist', Session.get('storedPassword'), name, email, function (error, result) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
@@ -90,11 +90,7 @@ Template.mailinglist.events({
       $('input#newMailingListPersonName').val('');
       $('input#newMailingListPersonEmail').val('');
 
-      Meteor.call('getMailinglist', Session.get('storedPassword'), function (error, result) {
-        if (!error) {
-          Session.set('mailinglist', result);
-        }
-      });
+      Session.set('mailinglist', result);
     });
   },
 
@@ -105,17 +101,13 @@ Template.mailinglist.events({
       return;
     }
 
-    Meteor.call('removeFromMailinglist', Session.get('storedPassword'), this._id, function (error) {
+    Meteor.call('removeFromMailinglist', Session.get('storedPassword'), this._id, function (error, result) {
       if (error) {
         FlashMessages.sendError('Feil passord');
         return;
       }
 
-      Meteor.call('getMailinglist', Session.get('storedPassword'), function (error, result) {
-        if (!error) {
-          Session.set('mailinglist', result);
-        }
-      });
+      Session.set('mailinglist', result);
     });
   }
 });
