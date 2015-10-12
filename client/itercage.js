@@ -1,3 +1,5 @@
+var FIVE_SECONDS = 5000;
+
 Template.default.helpers({
   loading: function () {
     return !Session.get('attendeesLoaded');
@@ -10,9 +12,6 @@ Template.list.helpers({
   },
   numberOfAttendees: function () {
     return numberOfAttendees();
-  },
-  showRemoveAttendeeButtons: function () {
-    return Session.get('showRemoveAttendeeButtons');
   },
   mode: function () {
     var number = numberOfAttendees();
@@ -28,6 +27,11 @@ Template.list.helpers({
   },
   percent: function () {
     return numberOfAttendees() * 10;
+  },
+  newItem: function (date) {
+    if ((new Date().getTime() - date.getTime()) < FIVE_SECONDS) {
+      return 'new-item';
+    }
   }
 });
 
@@ -47,26 +51,16 @@ Template.newAttendee.events({
 
     Meteor.call('addAttendee', name, function (error) {
       if (!error) {
-        template.find('input[name=name]').value = "";
+        template.find('input[name=name]').value = '';
       } else {
-        FlashMessages.sendError("For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.");
+        FlashMessages.clear();
+        FlashMessages.sendError('For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.');
       }
 
       Session.set('addingAttendee', false);
-    });
-  }
-});
-
-Template.list.events({
-  'click a.remove-attendee': function (event, template) {
-    event.preventDefault && event.preventDefault();
-
-    var password = $('input#password').val();
-
-    Meteor.call('removeAttendee', password, this._id, function (error) {
-      if (error) {
-        FlashMessages.sendError("Feil passord");
-      }
+      Meteor.setTimeout(function () {
+        $('input[name=name]').focus();
+      });
     });
   }
 });

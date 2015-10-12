@@ -1,5 +1,7 @@
 MailingList = new Meteor.Collection('mailinglist');
 
+Invites = new Meteor.Collection('invites');
+
 ServerConfig = new Meteor.Collection('config');
 
 

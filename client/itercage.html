@@ -1,6 +1,7 @@
 <template name="default">
-  <h1 class="title">Itercage</h1>
-  <p class="subtitle">Cageball Nydalen - Mandager kl. 20:45</p>
+  <img src="/logo.png" class="img-responsive logo">
+
+  <p class="subtitle">Cageball Nydalen &mdash; mandager kl. 20:40</p>
 
   {{> flashMessages}}
 
@@ -15,7 +16,7 @@
 <template name="newAttendee">
   <form role="form" name="newAttendee" class="new-attendee">
     <div class="input-group">
-     <input type="text" name="name" class="form-control" placeholder="Navn" disabled="{{addingAttendee}}">
+     <input type="text" name="name" class="form-control" placeholder="Navn" disabled="{{addingAttendee}}" autofocus="true">
      <span class="input-group-btn">
         <button class="btn btn-primary" type="submit" disabled="{{addingAttendee}}">Meld meg på</button>
      </span>
@@ -34,11 +35,10 @@
     <strong>Det er ingen påmeldte</strong>
   {{/if}}
 
-
   <ul class="list-group">
   {{#each attendees}}
-    <li class="list-group-item">{{name}}
-    {{#if showRemoveAttendeeButtons}}
+    <li class="list-group-item {{newItem date}}">{{name}}
+    {{#if ../showRemoveAttendeeButtons}}
       <a href="#" class="remove-attendee">Fjern</a>
     {{/if}}
     </li>
