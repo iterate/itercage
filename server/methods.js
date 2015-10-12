@@ -19,7 +19,7 @@ var inviteToCageball = function (person, invitationText) {
   Email.send({
     to: person.email,
     from: Config.get('FROM_EMAIL_ADDRESS'),
-    subject: '[itercage] Påmelding til Cageball (' + date + ')',
+    subject: '[itercage] Påmelding (' + date + ')',
     html: html
   });
 
