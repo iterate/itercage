@@ -32,6 +32,9 @@ Template.list.helpers({
     if ((new Date().getTime() - date.getTime()) < FIVE_SECONDS) {
       return 'new-item';
     }
+  },
+  timestamp: function (date) {
+    return moment(date).fromNow();
   }
 });
 
