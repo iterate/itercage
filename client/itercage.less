@@ -37,6 +37,24 @@ body {
   display: none;
 }
 
+.attendees-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+         -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+          justify-content: space-between;
+  @media (max-width: 500px) {
+    -webkit-flex-flow: column wrap;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap;
+  }
+}
 .timestamp {
   float: right;
   opacity: 0.5;
