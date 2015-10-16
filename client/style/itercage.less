@@ -23,8 +23,8 @@ button {
 .iter-container {
   display: flex;
   flex-flow: column nowrap;
-  @media(min-width: 780px) {
-    width: 780px;
+  @media(min-width: @container-max-width) {
+    width: @container-max-width;
   }
 }
 
@@ -119,9 +119,6 @@ button {
 }
 
 .new-item {
-  -webkit-animation: color-transisition 10s ease;
-  -moz-animation: color-transisition 10s ease;
-  -o-animation: color-transisition 10s ease;
   animation: color-transisition 10s ease;
 }
 
