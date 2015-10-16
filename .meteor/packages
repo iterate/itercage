@@ -4,8 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-less
-mizzao:bootstrap-3
 iron:router
 email
 mrt:flash-messages
@@ -27,3 +25,5 @@ check
 rzymek:moment-locale-nb
 u2622:persistent-session
 meteorhacks:ssr
+lauricio:less-autoprefixer
+mizzao:bootstrap-3
