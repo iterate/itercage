@@ -1,7 +1,13 @@
 
 .admin-btn-group {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
+  button {
+    margin: 1px;
+  }
+  @media (max-width: 500px) {
+    flex-flow: column nowrap;
+  }
 }
 
 .remove-attendee,
