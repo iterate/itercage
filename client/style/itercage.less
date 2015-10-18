@@ -51,7 +51,7 @@ button {
   .attendee-input {
     flex-grow: 2;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid @border-grey;
     border-radius: 4px;
     font-size: 14px;
     border-top-right-radius: 0px;
@@ -89,9 +89,9 @@ button {
 .attendees-list-item {
   display: flex;
   flex-flow: row wrap;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border-top: 1px solid @border-grey;
+  border-left: 1px solid @border-grey;
+  border-right: 1px solid @border-grey;
   word-break: break-word;
   padding: 10px 10px;
 
@@ -109,7 +109,7 @@ button {
 }
 
 .attendees-list-item:last-child {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid @border-grey;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
@@ -122,19 +122,7 @@ button {
   animation: color-transisition 10s ease;
 }
 
-@-webkit-keyframes color-transisition {
-  from { background-color: #5cb85c; }
-  to { opacity: #fff; }
-}
-@-moz-keyframes color-transisition {
-  from { background-color: #5cb85c; }
-  to { opacity: #fff; }
-}
-@-o-keyframes color-transisition {
-  from { background-color: #5cb85c; }
-  to { opacity: #fff; }
-}
 @keyframes color-transisition {
-  from { background-color: #5cb85c; }
+  from { background-color: @success; }
   to { opacity: #fff; }
 }
