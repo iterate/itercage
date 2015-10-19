@@ -16,6 +16,8 @@ button {
   display: flex;
   justify-content: center;
   padding: 10px;
+  max-width: 780px;
+  margin: 0 auto;
   @media(min-width: 780px) {
     padding: 20px;
   }
@@ -23,9 +25,7 @@ button {
 .iter-container {
   display: flex;
   flex-flow: column nowrap;
-  @media(min-width: @container-max-width) {
-    width: @container-max-width;
-  }
+  width: 100%;
 }
 
 .logo {
