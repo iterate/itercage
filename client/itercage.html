@@ -6,6 +6,7 @@
   {{> flashMessages}}
 
   {{#if loading}}
+    {{> hangOnASec}}
     {{> spinner}}
   {{else}}
     {{> newAttendee}}
@@ -45,4 +46,13 @@
     </li>
   {{/each}}
   </ul>
+</template>
+
+<template name="hangOnASec">
+  <div class="hang-on">
+    <p class="cage-chat">
+      Well, Baby O, it’s not exactly mai-tais and Yahtzee out here — but let’s do it.
+    </p>
+    <img src='/favicon.ico' />
+  </div>
 </template>
