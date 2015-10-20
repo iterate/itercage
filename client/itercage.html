@@ -1,5 +1,5 @@
 <template name="default">
-  <img src="/logo.png" class="img-responsive logo">
+  <img src="/logo.png" class="logo">
 
   <p class="subtitle">Cageball Nydalen &mdash; mandager kl. 20:40</p>
 
@@ -7,7 +7,6 @@
 
   {{#if loading}}
     {{> hangOnASec}}
-    {{> spinner}}
   {{else}}
     {{> newAttendee}}
     {{> list}}
@@ -17,7 +16,7 @@
 <template name="newAttendee">
   <form role="form" name="newAttendee" class="new-attendee">
     <div class="attendee-group">
-     <input type="text" name="name" class="attendee-input" placeholder="Navn" disabled="{{addingAttendee}}" autofocus="true">
+     <input type="text" name="name" class="attendee-input" placeholder="Navn" disabled="{{addingAttendee}}" autocomplete="off" autofocus="true">
      <button class="submit-attendee" type="submit" disabled="{{addingAttendee}}">Meld meg på</button>
     </div>
   </form>
@@ -37,12 +36,11 @@
   <ul class="attendees-list">
   {{#each attendees}}
     <li class="attendees-list-item {{newItem date}}">
+      <span class="name">{{name}}</span>
+      <span class="timestamp">{{timestamp date}}</span>
       {{#if ../showRemoveAttendeeButtons}}
         <a href="#" class="remove-attendee">Fjern</a>
       {{/if}}
-
-      <span class="name">{{name}}</span>
-      <span class="timestamp">{{timestamp date}}</span>
     </li>
   {{/each}}
   </ul>
@@ -50,9 +48,9 @@
 
 <template name="hangOnASec">
   <div class="hang-on">
+    <img class="spinner" src='/favicon.ico' />
     <p class="cage-chat">
       Well, Baby O, it’s not exactly mai-tais and Yahtzee out here — but let’s do it.
     </p>
-    <img src='/favicon.ico' />
   </div>
 </template>

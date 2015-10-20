@@ -3,7 +3,7 @@
 @import "./admin.less";
 
 body {
-  background-color: #FDFDFD;
+  background-color: @background-color;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
@@ -16,12 +16,14 @@ button {
   display: flex;
   justify-content: center;
   padding: 10px;
-  max-width: 780px;
+  max-width: @container-max-width;
   margin: 0 auto;
-  @media(min-width: 780px) {
+
+  @media(min-width: @container-max-width) {
     padding: 20px;
   }
 }
+
 .iter-container {
   display: flex;
   flex-flow: column nowrap;
@@ -30,6 +32,7 @@ button {
 
 .logo {
   max-width: 150px;
+  margin-bottom: 10px;
   align-self: center;
 }
 
@@ -37,6 +40,7 @@ button {
   font-family: 'Hind Vadodara', sans-serif;
   font-style: italic;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .new-attendee {
@@ -99,7 +103,7 @@ button {
     padding: 0px 6px;
   }
   .name {
-    flex-grow: 2;
+    flex-grow: 1;
   }
 }
 
@@ -124,12 +128,22 @@ button {
 
 @keyframes color-transisition {
   from { background-color: @success; }
-  to { opacity: #fff; }
+  to { opacity: white; }
 }
 
 .hang-on {
   text-align: center;
+  padding: 50px;
+}
+
+.spinner {
   padding: 20px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
 }
 
 .cage-chat {

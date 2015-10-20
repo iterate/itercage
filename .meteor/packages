@@ -7,7 +7,6 @@
 iron:router
 email
 mrt:flash-messages
-sacha:spin
 standard-minifiers
 meteor-base
 mobile-experience
