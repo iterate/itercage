@@ -1,0 +1,22 @@
+@import './vars.less';
+
+.admin-btn-group {
+  display: flex;
+  flex-flow: row wrap;
+  button {
+    margin: 1px;
+  }
+  @media (max-width: @medium-break) {
+    flex-flow: column nowrap;
+  }
+}
+
+.remove-attendee,
+.remove-person {
+  color: red;
+  margin-left: 15px;
+
+  &:hover, &:visited, &:active {
+    color: red;
+  }
+}

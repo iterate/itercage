@@ -1,0 +1,156 @@
+@import "./vars.less";
+@import "./progressbar.less";
+@import "./admin.less";
+
+body {
+  background-color: @background-color;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  max-width: @container-max-width;
+  margin: 0 auto;
+
+  @media(min-width: @container-max-width) {
+    padding: 20px;
+  }
+}
+
+.iter-container {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.subtitle {
+  font-family: 'Hind Vadodara', sans-serif;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.new-attendee {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.attendee-group {
+  display: flex;
+  flex-flow: row nowrap;
+
+  .attendee-input {
+    flex-grow: 2;
+    padding: 6px 12px;
+    border: 1px solid @border-grey;
+    border-radius: 4px;
+    font-size: 14px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    }
+  }
+  .submit-attendee {
+    width: 110px;
+    font-size: 14px;
+    padding: 6px 0px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    color: white;
+    background-color: @iterblue;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.attendees-list {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+}
+
+.attendees-list-item {
+  display: flex;
+  flex-flow: row wrap;
+  border-top: 1px solid @border-grey;
+  border-left: 1px solid @border-grey;
+  border-right: 1px solid @border-grey;
+  word-break: break-word;
+  padding: 10px 10px;
+
+  span {
+    padding: 0px 6px;
+  }
+  .name {
+    flex-grow: 1;
+  }
+}
+
+.attendees-list-item:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.attendees-list-item:last-child {
+  border-bottom: 1px solid @border-grey;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.timestamp {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  font-size: 11px;
+}
+
+.new-item {
+  animation: color-transisition 10s ease;
+}
+
+@keyframes color-transisition {
+  from { background-color: @success; }
+  to { opacity: white; }
+}
+
+.hang-on {
+  text-align: center;
+  padding: 50px;
+}
+
+.spinner {
+  padding: 20px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
+}
+
+.cage-chat {
+  font-family: cursive;
+  font-size: 16px;
+  font-weight: 500;
+}
