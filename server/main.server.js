@@ -13,6 +13,7 @@ var informOwnerOfNewAttendee = function (newAttendee) {
 };
 
 Meteor.startup(function () {
+  console.log('Production mode: ' + Meteor.isProduction);
 
   SSR.compileTemplate('inviteTemplate', Assets.getText('inviteTemplate.html'));
   Template.inviteTemplate.helpers({
