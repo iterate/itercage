@@ -1,7 +1,0 @@
-{
-  "public": {
-    "analyticsSettings": {
-      "Mixpanel": {"token":  "f1826cfe825eb770ad2068096bb2625c", "people": true},
-    }
-  }
-}
