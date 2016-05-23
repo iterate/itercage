@@ -23,8 +23,8 @@ check
 rzymek:moment-locale-nb
 u2622:persistent-session
 meteorhacks:ssr
-lauricio:less-autoprefixer
 mizzao:bootstrap-3
 okgrow:analytics
-standard-minifier-css
 standard-minifier-js
+less
+juliancwirko:postcss

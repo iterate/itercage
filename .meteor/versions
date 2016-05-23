@@ -39,8 +39,9 @@ iron:middleware-stack@1.1.0
 iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.8
+juliancwirko:postcss@1.1.1
 launch-screen@1.0.11
-lauricio:less-autoprefixer@2.5.0_3
+less@2.6.0
 livedata@1.0.18
 logging@1.0.12
 meteor@1.1.14
@@ -74,7 +75,6 @@ rzymek:moment-locale-nb@2.12.0
 session@1.1.5
 spacebars@1.0.11
 spacebars-compiler@1.0.11
-standard-minifier-css@1.0.6
 standard-minifier-js@1.0.6
 templating@1.1.9
 templating-tools@1.0.4
