@@ -28,7 +28,7 @@ var inviteToCageball = function (person, invitationText) {
 
 var verifyPassword = function (password) {
   if (password !== Config.get('SUPAH_SECRET_PASSWORD')) {
-    throw new Error('Wrong password');
+    throw new Meteor.Error('Wrong password');
   }
 }
 

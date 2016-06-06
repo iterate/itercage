@@ -9,7 +9,7 @@ Config = {
   get: function (key) {
     var config = ServerConfig.findOne({key: key});
     if (!config) {
-      throw new Error('No such config: ' + key);
+      throw new Meteor.Error('No such config: ' + key);
     }
     return config.value;
   },
