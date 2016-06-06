@@ -76,10 +76,6 @@ Meteor.methods({
     if (invite) {
       Meteor.call('addAttendee', invite.name);
 
-      analytics.track("addAttendeeByHash", {
-        name: invite.name
-      });
-
       Invites.remove({hash: hash});
     }
   },
