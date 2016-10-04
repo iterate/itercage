@@ -14,9 +14,33 @@
 .remove-attendee,
 .remove-person {
   color: red;
-  margin-left: 15px;
+  margin-left: 5px;
 
   &:hover, &:visited, &:active {
     color: red;
+  }
+}
+
+.mailinglist {
+  list-style-type: none;
+  padding: 0;
+
+  > li.mailinglist-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+
+    &:nth-child(odd) {
+      background: #eee;
+    }
+
+    .mailinglist-item-info {
+      text-align: right;
+    }
+
+    .external-indicator {
+      color: #aaa;
+      margin-left: 10px;
+    }
   }
 }

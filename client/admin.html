@@ -39,14 +39,18 @@
           <h4 class="modal-title" id="mailinglistModalLabel">Mailingliste</h4>
         </div>
         <div class="modal-body">
-          <ul>
+          <ul class="mailinglist">
             {{#each mailinglist}}
-              <li>
-                {{name}} &lt;{{email}}&gt;
-                {{#if external}}
-                  <span style="color: #aaa;">(ekstern)</span>
-                {{/if}}
-                <a href="#" class="remove-person">Slett</a>
+              <li class="mailinglist-item">
+                <span>
+                  {{name}} &lt;{{email}}&gt;
+                </span>
+                <span class="mailinglist-item-info">
+                  {{#if external}}
+                    <span class="external-indicator">(ekstern)</span>
+                  {{/if}}
+                  <a href="#" class="remove-person">Slett</a>
+                </span>
               </li>
             {{/each}}
           </ul>
