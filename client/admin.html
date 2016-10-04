@@ -13,9 +13,13 @@
 
   <div class="admin-btn-group">
     <button id="sendInvitations" class="btn btn-default" disabled={{sendingInvitations}}>Send invitasjoner</button>
+    <button id="sendInvitationsToExternals" class="btn btn-default" disabled={{sendingInvitations}}>Send invitasjoner til eksterne</button>
+  </div>
 
+  <br />
+
+  <div class="admin-btn-group">
     <button id="getMailinglist" class="btn btn-default" data-toggle="modal" data-target="#mailinglistModal">Se mailingliste</button>
-
     <button id="clearAttendees" class="btn btn-default">Slett påmeldingslisten</button>
   </div>
 
@@ -37,7 +41,13 @@
         <div class="modal-body">
           <ul>
             {{#each mailinglist}}
-              <li>{{name}} &lt;{{email}}&gt; <a href="#" class="remove-person">Slett</a></li>
+              <li>
+                {{name}} &lt;{{email}}&gt;
+                {{#if external}}
+                  <span style="color: #aaa;">(ekstern)</span>
+                {{/if}}
+                <a href="#" class="remove-person">Slett</a>
+              </li>
             {{/each}}
           </ul>
           <br>
@@ -49,6 +59,13 @@
             <div class="form-group">
               <label class="sr-only" for="newMailingListPersonEmail">Epost</label>
               <input type="email" class="form-control" id="newMailingListPersonEmail" placeholder="Epost">
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+              <label>
+                <input type="checkbox" id="newMailingListPersonExternal"> Ekstern
+              </label>
+            </div>
             </div>
             <button type="submit" class="btn btn-default">Legg til</button>
           </form>

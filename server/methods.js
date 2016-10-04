@@ -23,7 +23,13 @@ var inviteToCageball = function (person, invitationText) {
     html: html
   });
 
-  Invites.insert({name: name, hash: hash, date: new Date()});
+  Invites.insert({
+    name: name,
+    fullName: person.name,
+    hash: hash,
+    date: new Date(),
+    external: person.external
+  });
 }
 
 var verifyPassword = function (password) {
@@ -39,7 +45,21 @@ Meteor.methods({
     this.unblock();
 
     MailingList.find({}).fetch().forEach(function (person) {
-      inviteToCageball(person, invitationText);
+      if (!person.external) {
+        inviteToCageball(person, invitationText);
+      }
+    });
+  },
+
+  sendInvitationsToExternals: function (password, invitationText) {
+    verifyPassword(password);
+
+    this.unblock();
+
+    MailingList.find({}).fetch().forEach(function (person) {
+      if (person.external) {
+        inviteToCageball(person, invitationText);
+      }
     });
   },
 
@@ -49,12 +69,13 @@ Meteor.methods({
     return MailingList.find({}).fetch();
   },
 
-  addToMailinglist: function (password, name, email) {
+  addToMailinglist: function (password, name, email, external) {
     verifyPassword(password);
 
     MailingList.insert({
       name: name,
-      email: email
+      email: email,
+      external: !!external
     });
 
     return MailingList.find({}).fetch();
@@ -74,7 +95,11 @@ Meteor.methods({
     var invite = Invites.findOne({hash: hash});
 
     if (invite) {
-      Meteor.call('addAttendee', invite.name);
+      if (invite.external) {
+        Meteor.call('addAttendee', invite.fullName, true);
+      } else {
+        Meteor.call('addAttendee', invite.name, false);
+      }
 
       Invites.remove({hash: hash});
     }

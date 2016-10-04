@@ -26,7 +26,7 @@ Template.list.helpers({
     return mode;
   },
   percent: function () {
-    return numberOfAttendees() * 10;
+    return numberOfAttendees() * MAX_NUMBER_OF_ATTENDEES;
   },
   newItem: function (date) {
     if ((new Date().getTime() - date.getTime()) < FIVE_SECONDS) {
