@@ -3,18 +3,14 @@ Iterate Cageball enrollment and notifications.
 
 ## Running locally
 
-  1. Check if your platform is
-     [supported](https://github.com/meteor/meteor/wiki/Supported-Platforms).
-  
-  2. Install [Meteor.js](http://docs.meteor.com/#quickstart), or for the lazy,
+  1. Install [Meteor.js](http://docs.meteor.com/#quickstart). For the lazy,
      run this command: `curl https://install.meteor.com | /bin/sh`.
-     Verify by running `meteor --version`.
   
-  3. `git clone https://github.com/iterate/itercage.git`
+  2. `git clone https://github.com/iterate/itercage.git`
   
-  4. `cd itercage`
+  3. `cd itercage`
   
-  5. Run `meteor` and browse to localhost:3000.
+  4. Run `meteor` and browse to localhost:3000.
 
 
 ## Production environment
