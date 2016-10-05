@@ -12,18 +12,13 @@
   </div>
 
   <div class="admin-btn-group">
-    <button id="sendInvitations" class="btn btn-default" disabled={{sendingInvitations}}>Send invitasjoner</button>
-    <button id="sendInvitationsToExternals" class="btn btn-default" disabled={{sendingInvitations}}>Send invitasjoner til eksterne</button>
+    <button id="getMailinglist" class="btn btn-info" data-toggle="modal" data-target="#mailinglistModal">Se mailingliste</button>
+    <button id="sendInvitations" class="btn btn-success" disabled={{sendingInvitations}}>Send invitasjoner til interne</button>
+    <button id="sendInvitationsToExternals" class="btn btn-warning" disabled={{sendingInvitations}}>Send invitasjoner til eksterne</button>
+    <button id="clearAttendees" class="btn btn-danger">Slett påmeldingslisten</button>
   </div>
 
-  <br />
-
-  <div class="admin-btn-group">
-    <button id="getMailinglist" class="btn btn-default" data-toggle="modal" data-target="#mailinglistModal">Se mailingliste</button>
-    <button id="clearAttendees" class="btn btn-default">Slett påmeldingslisten</button>
-  </div>
-
-  <br><br>
+  <br>
 
   {{> flashMessages}}
 
