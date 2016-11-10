@@ -8,7 +8,7 @@
   </div>
 
   <div class="form-group">
-    <textarea class="form-control" id="invitationText" rows="6">Bli med på cageball?</textarea>
+    <textarea class="form-control" id="invitationText" rows="3">Bli med på cageball?</textarea>
   </div>
 
   <div class="admin-btn-group">
@@ -22,7 +22,24 @@
 
   {{> flashMessages}}
 
+  <h3>Påmeldte</h3>
   {{> list showRemoveAttendeeButtons="true"}}
+
+  {{> nonAttendees}}
+</template>
+
+<template name="nonAttendees">
+    {{#if nonAttendees}}
+      <h3>Kommer ikke</h3>
+      <ul class="attendees-list">
+        {{#each nonAttendees}}
+          <li class="attendees-list-item">
+            <span class="name">{{name}}</span>
+            <span class="timestamp">{{timestamp date}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
 </template>
 
 <template name="mailinglist">

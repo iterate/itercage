@@ -3,14 +3,14 @@
 
   <p class="subtitle">Cageball Nydalen &mdash; mandager kl. 20:40</p>
 
-  {{> flashMessages}}
-
   {{#if loading}}
     {{> hangOnASec}}
   {{else}}
     {{> newAttendee}}
     {{> list}}
   {{/if}}
+
+  {{> flashMessages}}
 </template>
 
 <template name="newAttendee">
@@ -34,15 +34,15 @@
   {{/if}}
 
   <ul class="attendees-list">
-  {{#each attendees}}
-    <li class="attendees-list-item {{newItem date}}">
-      <span class="name">{{name}}</span>
-      <span class="timestamp">{{timestamp date}}</span>
-      {{#if ../showRemoveAttendeeButtons}}
-        <a href="#" class="remove-attendee">Fjern</a>
-      {{/if}}
-    </li>
-  {{/each}}
+      {{#each attendees}}
+        <li class="attendees-list-item {{newItem date}}">
+          <span class="name">{{name}}</span>
+          <span class="timestamp">{{timestamp date}}</span>
+          {{#if ../showRemoveAttendeeButtons}}
+            <a href="#" class="remove-attendee">Fjern</a>
+          {{/if}}
+        </li>
+      {{/each}}
   </ul>
 </template>
 

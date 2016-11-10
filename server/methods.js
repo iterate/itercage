@@ -1,8 +1,18 @@
+isCorrectPassword = function (password) {
+  return password === Config.get('SUPAH_SECRET_PASSWORD');
+}
+
 var guid = function () {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
     return v.toString(16);
   });
+}
+
+var verifyPassword = function (password) {
+  if (!isCorrectPassword(password)) {
+    throw new Meteor.Error('Wrong password');
+  }
 }
 
 var inviteToCageball = function (person, invitationText) {
@@ -30,12 +40,6 @@ var inviteToCageball = function (person, invitationText) {
     date: new Date(),
     external: person.external
   });
-}
-
-var verifyPassword = function (password) {
-  if (password !== Config.get('SUPAH_SECRET_PASSWORD')) {
-    throw new Meteor.Error('Wrong password');
-  }
 }
 
 Meteor.methods({
@@ -105,6 +109,26 @@ Meteor.methods({
     }
   },
 
+  addNonAttendeeByHash: function (hash) {
+    var invite = Invites.findOne({hash: hash});
+
+    if (invite) {
+      var name = (invite.external && invite.fullName || invite.name || '').trim();
+
+      if (name === '') {
+        return;
+      }
+
+      NonAttendees.insert({
+        name: name,
+        external: invite.external,
+        date: new Date()
+      });
+
+      Invites.remove({hash: hash});
+    }
+  },
+
   removeAttendee: function (password, attendeeId) {
     verifyPassword(password);
 
@@ -115,6 +139,7 @@ Meteor.methods({
     verifyPassword(password);
 
     Attendees.remove({});
+    NonAttendees.remove({});
     Invites.remove({});
 
     Email.send({

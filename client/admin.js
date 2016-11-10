@@ -141,3 +141,12 @@ Template.mailinglist.helpers({
     return Session.get('mailinglist');
   }
 });
+
+Template.nonAttendees.helpers({
+  nonAttendees: function () {
+    return NonAttendees.find({}).fetch();
+  },
+  timestamp: function (date) {
+    return moment(date).fromNow();
+  }
+});
