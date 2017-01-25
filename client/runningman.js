@@ -1,11 +1,11 @@
-let xpos = window.innerWidth / 2;
-let runningman = null;
+var xpos = window.innerWidth / 2;
+var runningman = null;
 Session.set('runningmanSource', '/man_still.png');
-let speed = 10;
-let distance = 0;
+var speed = 10;
+var distance = 0;
 Session.set('runningmanLaps', distance);
 
-Template.runningman.rendered = () => {
+Template.runningman.rendered = function () {
     var runningman = $('#runningman')[0];
     runningman.style.left = xpos + 'px';
 
@@ -17,7 +17,7 @@ Template.runningman.rendered = () => {
             runningman.style.transform = "translate(-50%)";
         } else if (event.key === 'ArrowLeft') {
             xpos -= speed;
-            if (xpos <= 0) {
+            if (xpos < 0) {
                 xpos += window.innerWidth;
             }
             Session.set('runningmanSource', '/man_moving_right.gif');
@@ -37,11 +37,11 @@ Template.runningman.rendered = () => {
 }
 
 Template.runningman.helpers({
-    runningmanSource: () => {
+    runningmanSource: function () {
         return Session.get('runningmanSource');
     },
-    laps: () => {
-        const laps = Session.get('runningmanLaps');
+    laps: function () {
+        var laps = Session.get('runningmanLaps');
         return laps > 1 ? 'Runder: ' + laps : '';
     }
 });
