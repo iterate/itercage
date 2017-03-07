@@ -9,8 +9,10 @@ Iterate Cageball enrollment and notifications.
   2. `git clone https://github.com/iterate/itercage.git`
   
   3. `cd itercage`
+
+  4. 'npm install'
   
-  4. Run `meteor` and browse to localhost:3000.
+  5 Run `meteor run for dev mode and meteor for prod mode` and browse to localhost:3000.
 
 
 ## Production environment
