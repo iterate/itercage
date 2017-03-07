@@ -1,4 +1,7 @@
 var FIVE_SECONDS = 5000;
+var mixpanel = require('mixpanel-browser');
+var meteorEnv = require('meteor/meteor');
+mixpanel.init("f490364988270fdde9d18c05c6152e87");
 
 Template.default.helpers({
   loading: function () {
@@ -55,6 +58,11 @@ Template.newAttendee.events({
     Meteor.call('addAttendee', name, function (error) {
       if (!error) {
         template.find('input[name=name]').value = '';
+        if(meteorEnv.Meteor.isProduction) {
+          mixpanel.identify(name);
+          mixpanel.people.set({ name });
+          mixpanel.people.increment("attending");
+        }
       } else {
         FlashMessages.clear();
         FlashMessages.sendError('For mange påmeldte. Kontakt truls@iterate.no dersom du vil være med.');
