@@ -10,9 +10,9 @@ Iterate Cageball enrollment and notifications.
   
   3. `cd itercage`
 
-  4. 'npm install'
+  4. `npm install`
   
-  5 Run `meteor run for dev mode and meteor for prod mode` and browse to localhost:3000.
+  5. Run `meteor run` for dev mode and `meteor` for prod mode and browse to [localhost:3000](http://localhost:3000).
 
 
 ## Production environment
