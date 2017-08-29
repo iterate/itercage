@@ -2,19 +2,29 @@ const Ball = require('./ball');
 const Player = require('./player');
 
 Template.runningman.rendered = function () {
-    Session.set('playerOneSource', '/man_still.png');
-    Session.set('playerTwoSource', '/man_still.png');
+    Session.set('playerOneSource', '/blue_man_still.png');
+    Session.set('playerTwoSource', '/orange_man_still.png');
     Session.set('bestTrickCombo', 0);
     Session.set('playerOneScoredGoals', 0);
     Session.set('playerTwoScoredGoals', 0);
 
     const playerOne = new Player(
         $('#playerOne')[0],
-        (src) => Session.set('playerOneSource', src)
+        (src) => Session.set('playerOneSource', src),
+        {
+            still: '/blue_man_still.png',
+            movingRight: '/blue_man_moving_right.gif'
+        },
+        (window.innerWidth / 4) * 3
     );
     const playerTwo = new Player(
         $('#playerTwo')[0],
-        (src) => Session.set('playerTwoSource', src)
+        (src) => Session.set('playerTwoSource', src),
+        {
+            still: '/orange_man_still.png',
+            movingRight: '/orange_man_moving_right.gif'
+        },
+        window.innerWidth / 4
     );
 
     const balls = Array(1).fill().map(() => new Ball());
@@ -81,6 +91,10 @@ Template.runningman.rendered = function () {
 
     window.onkeydown = (event) => pressedKeys[capitalize(event.key)] = true;
     window.onkeyup = (event) => pressedKeys[capitalize(event.key)] = false;
+    window.onkeypress = (event) => {
+        event.ctrlKey && event.shiftKey && event.key === 'B' && balls.push(new Ball())
+    };
+
     window.setInterval(update, 50);
 }
 

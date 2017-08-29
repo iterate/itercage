@@ -10,14 +10,14 @@ const accel = {
     y: 30
 };
 
-module.exports = function Player(element, setImageSource) {
+module.exports = function Player(element, setImageSource, imageSources, startPosX) {
 
     let speed = {
         x: 0,
         y: 0
     };
     const pos = {
-        x: window.innerWidth / 2,
+        x: startPosX,
         y: 0
     };
 
@@ -31,12 +31,12 @@ module.exports = function Player(element, setImageSource) {
 
     this.moveRight = function () {
         speed.x += accel.x * (speed.x >= 0 ? 1 : 2);
-        setImageSource('/man_moving_right.gif');
+        setImageSource(imageSources.movingRight);
         element.style.transform = 'translate(-50%)';
     }
     this.moveLeft = function () {
         speed.x -= accel.x * (speed.x <= 0 ? 1 : 2);
-        setImageSource('/man_moving_right.gif');
+        setImageSource(imageSources.movingRight);
         element.style.transform = 'scaleX(-1) translate(50%)';
     }
     this.slowDown = function () {
@@ -52,7 +52,7 @@ module.exports = function Player(element, setImageSource) {
         }
     }
     this.standStill = function () {
-        setImageSource('/man_still.png');
+        setImageSource(imageSources.still);
         speed.x = 0;
     }
     this.jump = function () {
@@ -61,16 +61,20 @@ module.exports = function Player(element, setImageSource) {
         }
     }
 
-    let lastKick = Number.NEGATIVE_INFINITY;
+    const lastKickOnBall = {};
 
     this.kickBall = function (ball) {
+        if (!lastKickOnBall[ball.id]) {
+            lastKickOnBall[ball.id] = Number.NEGATIVE_INFINITY;
+        }
+
         const dist = {
             x: ball.physObj.pos.x - pos.x,
             y: ball.physObj.pos.y - pos.y
         };
 
-        if ((Date.now() - lastKick > 200) && Math.abs(dist.x) < 150 && Math.abs(dist.y) < 150) {
-            lastKick = Date.now();
+        if ((Date.now() - lastKickOnBall[ball.id] > 200) && Math.abs(dist.x) < 150 && Math.abs(dist.y) < 150) {
+            lastKickOnBall[ball.id] = Date.now();
 
             const euqlidianDist = Math.sqrt(Math.pow(dist.x, 2) + Math.pow(dist.y, 2));
 

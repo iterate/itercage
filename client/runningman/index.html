@@ -2,6 +2,14 @@
   <div id="runningman-container" class="runningman-container">
       <img id="playerOne" class="runningman" src="{{playerOneSource}}" />
       <img id="playerTwo" class="runningman" src="{{playerTwoSource}}" />
-      <p style="text-align: center;">{{bestTrickCombo}}</p>
+      <p style="text-align: center;">
+        {{#if bestTrickCombo}}
+          <span style="position:relative">
+            <div style="position:absolute; left:-25px; top:2px; width:12px; height:12px; background:rgb(255,81,8)"></div>
+            {{bestTrickCombo}}
+            <div style="position:absolute; right:-25px; top:2px; width:12px; height:12px; background:rgb(29,74,89)"></div>
+          </span>
+        {{/if}}
+      </p>
   </div>
 </template>

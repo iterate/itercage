@@ -5,6 +5,8 @@ const {
     updatePhysObjY
 } = require('./physics');
 
+let numberOfBalls = 0;
+
 module.exports = function ball() {
     const element = document.createElement('img');
     element.setAttribute('src', '/american-football.png');
@@ -29,6 +31,7 @@ module.exports = function ball() {
     this.physObj = physObj;
     this.currentTrickCombo = 0;
     this.bestTrickCombo = 0;
+    this.id = numberOfBalls++;
 
     this.spin = function () {
         element.style.transform = `translate(-50%) rotate(${Math.random() * 360}deg)`;
