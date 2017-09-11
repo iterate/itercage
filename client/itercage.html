@@ -12,7 +12,9 @@
 
   {{> flashMessages}}
 
-  {{> runningman}}
+  {{#if runningmanMode}}
+    {{> runningman}}
+  {{/if}}
 </template>
 
 <template name="newAttendee">

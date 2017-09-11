@@ -6,6 +6,9 @@ mixpanel.init("f490364988270fdde9d18c05c6152e87");
 Template.default.helpers({
   loading: function () {
     return !Session.get('attendeesLoaded');
+  },
+  runningmanMode: function () {
+    return window.location.search.indexOf('runningman') > -1;
   }
 });
 
