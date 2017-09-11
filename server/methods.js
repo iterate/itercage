@@ -138,7 +138,7 @@ Meteor.methods({
   clearAttedees: function (password) {
     verifyPassword(password);
 
-    Attendees.remove({});
+    Attendees.update({}, {$set: {deleted: true}}, {multi: true});
     NonAttendees.remove({});
     Invites.remove({});
 
