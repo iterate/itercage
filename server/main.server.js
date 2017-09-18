@@ -1,8 +1,6 @@
 var informOwnerOfNewAttendee = function (newAttendee) {
-  var numberOfAttendees = Attendees.find({}).count();
-
   var date = moment().format('DD-MM-YYYY');
-  var text = newAttendee.name + ' (' + numberOfAttendees + ' påmeldte)';
+  var text = newAttendee.name + ' (' + numberOfAttendees() + ' påmeldte)';
 
   Email.send({
     to: Config.get('OWNER_EMAIL_ADDRESS'),
