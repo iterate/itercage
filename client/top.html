@@ -1,0 +1,18 @@
+<template name="top">
+  <img src="/logo.png" class="logo">
+
+  <p class="subtitle">Hvem spiller mest?</p>
+
+  {{> toplist}}
+</template>
+
+<template name="toplist">
+  <ul class="attendees-list" style="margin-top: 20px;">
+      {{#each toplist}}
+        <li class="attendees-list-item">
+          <span class="name">{{name}}</span>
+          <span class="timestamp">{{amount}}</span>
+        </li>
+      {{/each}}
+  </ul>
+</template>

@@ -149,4 +149,8 @@ Meteor.methods({
       text: 'Påmeldingsliste slettet'
     });
   },
+
+  allAttendees: function () {
+    return Attendees.find({}).fetch();
+  },
 });
