@@ -9,7 +9,6 @@ export default () => {
 
   useEffect(() => {
     database.collection('top').onSnapshot(snapshot => {
-      console.log("here", snapshot.docs);
       const toplist = snapshot.docs.map(doc => doc.data()).sort((a, b) => b.count - a.count);
       setToplist((toplist && Object.values(toplist)) || []);
 
