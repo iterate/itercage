@@ -1,32 +1,45 @@
 {
   "name": "itercage",
-  "version": "1.0.0",
-  "description": "Iterate Cageball enrollment",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "autoprefixer": "^6.3.6",
-    "babel-runtime": "^6.22.0",
-    "mixpanel-browser": "^2.13.0"
-  },
-  "devDependencies": {},
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {
-        "browsers": [
-          "last 2 versions"
-        ]
-      }
-    }
+    "@sendgrid/mail": "^6.4.0",
+    "date-fns": "^2.7.0",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-basic-auth": "^1.2.0",
+    "firebase": "^7.2.3",
+    "firebase-admin": "^8.7.0",
+    "glob": "^7.1.6",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.9.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "react-scripts start",
+    "build": "react-scripts build",
+    "start": "node bin/www",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iterate/itercage.git"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/iterate/itercage/issues"
-  },
-  "homepage": "https://github.com/iterate/itercage#readme"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

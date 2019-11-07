@@ -1,0 +1,16 @@
+port = 3000
+readiness_path = "/api/health"
+
+[build]
+build_in_kubernetes = true
+
+[env.common]
+FIREBASE_PRIVATE_KEY={ secret = "firebase", key = "private_key" }
+
+[env.test]
+FIREBASE_PROJECT_ID="noba-dev"
+FIREBASE_CLIENT_EMAIL="noba-cms@noba-dev.iam.gserviceaccount.com"
+
+[env.prod]
+FIREBASE_PROJECT_ID="itercage-d4495"
+FIREBASE_CLIENT_EMAIL="firebase-adminsdk-pfxiu@itercage-d4495.iam.gserviceaccount.com"
