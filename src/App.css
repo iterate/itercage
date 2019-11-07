@@ -1,0 +1,215 @@
+body {
+  background-color: #FDFDFD;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+button {
+  cursor: pointer;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+@media (min-width: 780px) {
+  .wrapper {
+    padding: 20px;
+  }
+}
+.iter-container {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+}
+.logo {
+  max-width: 150px;
+  margin-bottom: 10px;
+  align-self: center;
+}
+.subtitle {
+  font-family: 'Hind Vadodara', sans-serif;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 0;
+}
+.new-attendee {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.attendee-group {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.attendee-group .attendee-input {
+  flex-grow: 2;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.attendee-group .attendee-input:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.attendee-group .submit-attendee {
+  width: 110px;
+  font-size: 14px;
+  padding: 6px 0px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  color: white;
+  background-color: #006fac;
+}
+.hidden {
+  display: none;
+}
+.attendees-list {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0;
+}
+.attendees-list-item {
+  display: flex;
+  flex-flow: row wrap;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  word-break: break-word;
+  padding: 10px 10px;
+}
+.attendees-list-item span {
+  padding: 0px 6px;
+}
+.attendees-list-item .name {
+  flex-grow: 1;
+}
+.attendees-list-item:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.attendees-list-item:last-child {
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.timestamp {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  font-size: 11px;
+}
+.new-item {
+  animation: color-transisition 10s ease;
+}
+@keyframes color-transisition {
+  from {
+    background-color: #5cb85c;
+  }
+  to {
+    opacity: white;
+  }
+}
+.hang-on {
+  text-align: center;
+  padding: 50px;
+}
+.spinner {
+  padding: 20px;
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.cage-chat {
+  font-family: cursive;
+  font-size: 16px;
+  font-weight: 500;
+}
+.iter-progress {
+  height: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.iter-progress-bar {
+  display: flex;
+  justify-content: center;
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  background-color: #d9534f;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transition: width 1s ease;
+}
+.iter-progress-bar strong {
+  font-weight: bold;
+}
+.iter-success {
+  background-color: #5cb85c;
+}
+.iter-warning {
+  background-color: #f0ad4e;
+}
+
+.admin-btn-group {
+  display: flex;
+  flex-flow: row wrap;
+}
+.admin-btn-group button {
+  margin: 1px;
+}
+@media (max-width: 500px) {
+  .admin-btn-group {
+    flex-flow: column nowrap;
+  }
+}
+.remove-attendee,
+.remove-person {
+  color: red;
+  margin-left: 5px;
+}
+.remove-attendee:hover,
+.remove-person:hover,
+.remove-attendee:visited,
+.remove-person:visited,
+.remove-attendee:active,
+.remove-person:active {
+  color: red;
+}
+.mailinglist {
+  list-style-type: none;
+  padding: 0;
+}
+.mailinglist > li.mailinglist-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+}
+.mailinglist > li.mailinglist-item:nth-child(odd) {
+  background: #eee;
+}
+.mailinglist > li.mailinglist-item .mailinglist-item-info {
+  text-align: right;
+}
+.mailinglist > li.mailinglist-item .external-indicator {
+  color: #aaa;
+  margin-left: 10px;
+}
