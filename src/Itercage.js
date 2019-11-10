@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import { formatDistance } from 'date-fns';
-import { nb } from 'date-fns/locale'
+import queryString from 'query-string';
 
 import logo from './logo.png';
-import { database } from './firebase'
-import Loading from "./components/Loading";
 import fetch from './util/fetch';
-
+import Attendees from "./components/Attendees";
+import useAttendees from "./hooks/useAttendees";
+import Loading from "./components/Loading";
+import {InfoAlert} from "./components/Alerts";
 
 const addAttendee = (name) => {
   return fetch.post(`/api/attendee`, {name});
+};
+
+const addNonAttendee = (name) => {
+  return fetch.post(`/api/non-attendee`, {name});
 };
 
 const NewAttendee = () => {
@@ -32,7 +36,7 @@ const NewAttendee = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} role="form" name="newAttendee" className="new-attendee">
+    <form onSubmit={onSubmit} name="newAttendee" className="new-attendee">
       <div className="attendee-group">
         <input type="text"
                name="name"
@@ -49,82 +53,39 @@ const NewAttendee = () => {
   )
 };
 
-const MAX_NUMBER_OF_ATTENDEES = 10;
-
-const getProgressBarMode = (numberOfAttendees) => {
-  if (numberOfAttendees >= 10) {
-    return 'danger';
-  } else if (numberOfAttendees > 5) {
-    return 'warning';
-  } else {
-    return 'success';
-  }
-};
-
-const ProgressBar = ({numberOfAttendees}) => {
-  return (
-    <div className="iter-progress">
-      <div className={`iter-progress-bar iter-${getProgressBarMode(numberOfAttendees)}`} style={{width: `${numberOfAttendees * MAX_NUMBER_OF_ATTENDEES}%`}}>
-        {numberOfAttendees && <strong>Påmeldte: {numberOfAttendees}</strong>}
-      </div>
-    </div>
-  )
-};
-
-const Attendees = ({attendees, showRemoveAttendeeButtons}) => {
-  const numberOfAttendees = attendees.length;
-
-  const attendeeElements = attendees.map((attendee, index) => (
-    <li key={index} className="attendees-list-item {{newItem date}}">
-      <span className="name">{attendee.name}</span>
-      <span className="timestamp">{formatDistance(attendee.timestamp, new Date(), {locale: nb, addSuffix: true})}</span>
-      {showRemoveAttendeeButtons && <a href="#" className="remove-attendee">Fjern</a>}
-    </li>
-  ));
-
-  return (
-    <div>
-      {numberOfAttendees ?
-        <ProgressBar numberOfAttendees={numberOfAttendees} /> :
-        <strong>Det er ingen påmeldte</strong>
-      }
-
-
-      <ul className="attendees-list">
-        {attendeeElements}
-      </ul>
-    </div>
-  )
-};
-
-export default () => {
-  const [loading, setLoading] = useState(false);
-  const [attendees, setAttendees] = useState([]);
+export default ({location}) => {
+  const attendees = useAttendees();
+  const [answerRegistered, setAnswerRegistered] = useState(false);
 
   useEffect(() => {
-    database.collection('attendees').onSnapshot(snapshot => {
-      const attendees = snapshot.docs.filter(doc => doc.data().timestamp).map(doc => {
-        const data = doc.data();
+    const {a: answer, n: name} = queryString.parse(location.search);
 
-        return {
-          ...data,
-          timestamp: data.timestamp.toDate()
-        }
-      }).sort((a, b) => a.timestamp - b.timestamp);
-      setAttendees((attendees && Object.values(attendees)) || []);
-      setLoading(false);
-    })
-  }, []);
+    if (name && answer) {
 
-  if (loading) {
+      if (answer === 'y') {
+        addAttendee(name)
+      } else {
+        addNonAttendee(name)
+      }
+      setAnswerRegistered(true);
+    }
+  }, [location.search]);
+
+  if (!attendees) {
     return <Loading />;
   }
 
   return (
     <>
-      <img src={logo} className="logo" />
+      <img src={logo} className="logo" alt="logo" />
 
-        <p className="subtitle">Cageball Nydalen – mandager kl. 20:40</p>
+        <p className="subtitle">Cageball Nydalen – mandager kl. 20:45</p>
+
+        <br />
+
+        {answerRegistered && <InfoAlert message="Takk. Ditt svar er registrert." />}
+
+        <br />
 
         <NewAttendee />
 
@@ -132,5 +93,3 @@ export default () => {
     </>
   )
 }
-
-

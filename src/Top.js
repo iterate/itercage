@@ -29,7 +29,7 @@ export default () => {
 
   return (
     <>
-      <img src={logo} className="logo" />
+      <img src={logo} className="logo" alt="logo" />
 
       <p className="subtitle">Hvem spiller mest?</p>
 

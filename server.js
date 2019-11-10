@@ -1,18 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
 const createError = require('http-errors');
-
 const path = require('path');
 
-const logger = require('./logger');
-const routes = require('./routes');
-
 require('./setup-firebase');
+
+const routes = require('./routes');
+const logger = require('./logger');
 
 const app = express();
 
 app.use(morgan('tiny', {
-  skip: req => req.url === '/health',
+  skip: req => req.url === '/api/health' || req.url.startsWith('/static') || req.url === '/favicon.ico',
   stream: logger.stream
 }));
 
@@ -29,10 +28,6 @@ app.use(express.static(path.join(__dirname, "/build")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/build/index.html"));
-});
-
-app.use((req, res, next) => {
-  next(createError(404));
 });
 
 app.use((err, req, res) => {

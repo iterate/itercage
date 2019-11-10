@@ -6,6 +6,7 @@ build_in_kubernetes = true
 
 [env.common]
 FIREBASE_PRIVATE_KEY={ secret = "firebase", key = "private_key" }
+SENDGRID_API_KEY={ secret = "email", key = "sendgrid_api_key" }
 
 [env.test]
 FIREBASE_PROJECT_ID="noba-dev"
