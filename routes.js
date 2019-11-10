@@ -3,6 +3,8 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const sendgrid = require('@sendgrid/mail');
 
+const logger = require('./logger');
+
 const router = express.Router();
 
 const firestore = admin.firestore();
@@ -10,7 +12,7 @@ const firestore = admin.firestore();
 const increment = admin.firestore.FieldValue.increment(1);
 const decrement = admin.firestore.FieldValue.increment(-1);
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY.replace(/\n/g, ''));
 
 const encodeName = (name) => {
   return Buffer.from(name).toString('base64');
@@ -111,7 +113,11 @@ const sendInvites = async () => {
     };
   });
 
-  await sendgrid.send(emails);
+  try {
+    await sendgrid.send(emails);
+  } catch(e) {
+    logger.error(e);
+  }
 };
 
 router.post('/attendee', asyncHandler(async (req, res) => {
