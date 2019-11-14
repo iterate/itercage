@@ -18,32 +18,24 @@ const encodeName = (name) => {
   return Buffer.from(name).toString('base64');
 };
 
-const addAttendee = (name) => {
-  return firestore.collection(`attendees`).doc(encodeName(name)).set({name, timestamp: admin.firestore.FieldValue.serverTimestamp()});
+const addRegisteredUser = (name, isAttending) => {
+  return firestore.collection(`registered-users`).doc(encodeName(name)).set({name, isAttending, timestamp: admin.firestore.FieldValue.serverTimestamp()});
 };
 
-const removeAttendee = (name) => {
-  return firestore.collection(`attendees`).doc(encodeName(name)).delete();
+const removeRegisteredUser = (name) => {
+  return firestore.collection(`registered-users`).doc(encodeName(name)).delete();
 };
 
-const addNonAttendee = (name) => {
-  return firestore.collection(`nonAttendees`).doc(encodeName(name)).set({name, timestamp: admin.firestore.FieldValue.serverTimestamp()});
+const removeAllRegisteredUsers = async (batch) => {
+  const registeredUsersSnapshot = await firestore.collection(`registered-users`).get();
+
+  await Promise.all(registeredUsersSnapshot.docs.map(doc => batch.delete(doc.ref)));
 };
 
-const removeNonAttendee = (name) => {
-  return firestore.collection(`nonAttendees`).doc(encodeName(name)).delete();
-};
+const getExistingUser = async (name) => {
+  const registeredUserDoc = await firestore.collection(`registered-users`).doc(encodeName(name)).get();
 
-const removeAllAttendees = async (batch) => {
-  const attendeesSnapshot = await firestore.collection(`attendees`).get();
-
-  await Promise.all(attendeesSnapshot.docs.map(doc => batch.delete(doc.ref)));
-};
-
-const removeAllNonAttendees = async (batch) => {
-  const nonAttendeesSnapshot = await firestore.collection(`nonAttendees`).get();
-
-  await Promise.all(nonAttendeesSnapshot.docs.map(doc => batch.delete(doc.ref)));
+  return registeredUserDoc.data();
 };
 
 const incrementTop = async (name) => {
@@ -120,46 +112,39 @@ const sendInvites = async () => {
   }
 };
 
-router.post('/attendee', asyncHandler(async (req, res) => {
-  const {name} = req.body;
+router.post('/registered-users', asyncHandler(async (req, res) => {
+  const {name, isAttending} = req.body;
 
-  const attendee = await firestore.collection(`attendees`).doc(encodeName(name)).get();
+  const existingUser = getExistingUser(name);
 
-  if (attendee.exists) {
+  if (existingUser && (existingUser.isAttending === isAttending)) {
     return res.end();
   }
 
-  await Promise.all([addAttendee(name), incrementTop(name)]);
+  await addRegisteredUser(name, isAttending);
+
+  if (isAttending) {
+    await incrementTop(name)
+  } else if (existingUser && existingUser.isAttending && !isAttending) {
+    await decrementTop(name);
+  }
 
   res.end();
 }));
 
-router.delete('/attendee', asyncHandler(async (req, res) => {
+router.delete('/registered-users', asyncHandler(async (req, res) => {
   const {name} = req.body;
 
-  await Promise.all([removeAttendee(name), decrementTop(name)]);
+  const existingUser = await getExistingUser(name);
 
-  res.end();
-}));
-
-router.post('/non-attendee', asyncHandler(async (req, res) => {
-  const {name} = req.body;
-
-  const nonAttendee = await firestore.collection(`nonAttendee`).doc(encodeName(name)).get();
-
-  if (nonAttendee.exists) {
+  if (!existingUser) {
     return res.end();
   }
 
-  await Promise.all([addNonAttendee(name)]);
-
-  res.end();
-}));
-
-router.delete('/non-attendee', asyncHandler(async (req, res) => {
-  const {name} = req.body;
-
-  await removeNonAttendee(name);
+  if (existingUser.isAttending) {
+    await decrementTop(name)
+  }
+  await removeRegisteredUser(name);
 
   res.end();
 }));
@@ -176,7 +161,7 @@ router.get('/reset', asyncHandler(async (req, res) => {
 
   let batch = firestore.batch();
 
-  await Promise.all([removeAllAttendees(batch), removeAllNonAttendees(batch)]);
+  await removeAllRegisteredUsers(batch);
 
   await batch.commit();
 

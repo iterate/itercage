@@ -4,16 +4,16 @@ import queryString from 'query-string';
 import logo from './logo.png';
 import fetch from './util/fetch';
 import Attendees from "./components/Attendees";
-import useAttendees from "./hooks/useAttendees";
+import useRegisteredUsers from "./hooks/useRegisteredUsers";
 import Loading from "./components/Loading";
 import {InfoAlert} from "./components/Alerts";
 
 const addAttendee = (name) => {
-  return fetch.post(`/api/attendee`, {name});
+  return fetch.post(`/api/registered-users`, {name, isAttending: true});
 };
 
 const addNonAttendee = (name) => {
-  return fetch.post(`/api/non-attendee`, {name});
+  return fetch.post(`/api/registered-users`, {name, isAttending: false});
 };
 
 const NewAttendee = () => {
@@ -54,7 +54,7 @@ const NewAttendee = () => {
 };
 
 export default ({location}) => {
-  const attendees = useAttendees();
+  const {attendees} = useRegisteredUsers();
   const [answerRegistered, setAnswerRegistered] = useState(false);
 
   useEffect(() => {

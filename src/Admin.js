@@ -4,8 +4,7 @@ import Attendees from "./components/Attendees";
 import Loading from "./components/Loading";
 import NonAttendees from "./components/NonAttendees";
 
-import useAttendees from "./hooks/useAttendees";
-import useNonAttendees from "./hooks/useNonAttendees";
+import useRegisteredUsers from "./hooks/useRegisteredUsers";
 import fetch from "./util/fetch";
 import {useAuth} from "./hooks/useAuth";
 import Login from "./components/Login";
@@ -22,8 +21,7 @@ const reset = () => {
 export default () => {
   const [sendingInvites, setSendingInvites] = useState(false);
   const [sentInviteEmails, setSentInviteEmails] = useState(false);
-  const attendees = useAttendees();
-  const nonAttendees = useNonAttendees();
+  const {attendees, nonAttendees} = useRegisteredUsers();
 
   const onSendInvites = async () => {
     setSendingInvites(true);

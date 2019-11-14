@@ -3,8 +3,8 @@ import {formatDistance} from "date-fns";
 import {nb} from "date-fns/locale";
 import fetch from "../util/fetch";
 
-const removeAttendee = (name) => {
-  return fetch.delete(`/api/attendee`, {name});
+const removeRegisteredUser = (name) => {
+  return fetch.delete(`/api/registered-users`, {name});
 };
 
 const getProgressBarMode = (numberOfAttendees) => {
@@ -36,7 +36,7 @@ const Attendees = ({attendees, showRemoveAttendeeButtons}) => {
     <li key={index} className="attendees-list-item {{newItem date}}">
       <span className="name">{attendee.name}</span>
       <span className="timestamp">{formatDistance(attendee.timestamp, new Date(), {locale: nb, addSuffix: true})}</span>
-      {showRemoveAttendeeButtons && <button className="remove-attendee link-button" onClick={(e) => {e.preventDefault();removeAttendee(attendee.name)}}>Fjern</button>}
+      {showRemoveAttendeeButtons && <button className="remove-attendee link-button" onClick={(e) => {e.preventDefault();removeRegisteredUser(attendee.name)}}>Fjern</button>}
     </li>
   ));
 
