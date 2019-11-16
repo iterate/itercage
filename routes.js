@@ -2,6 +2,7 @@ const admin = require('firebase-admin');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const sendgrid = require('@sendgrid/mail');
+const middleware = require('./middleware');
 
 const logger = require('./logger');
 
@@ -18,7 +19,7 @@ const encodeName = (name) => {
   return Buffer.from(name).toString('base64');
 };
 
-const addRegisteredUser = (name, isAttending) => {
+const setRegisteredUser = (name, isAttending) => {
   return firestore.collection(`registered-users`).doc(encodeName(name)).set({name, isAttending, timestamp: admin.firestore.FieldValue.serverTimestamp()});
 };
 
@@ -56,7 +57,7 @@ const decrementTop = async (name) => {
   }
 };
 
-const generateHtml = (user) => {
+const generateInviteEmailHtml = (user) => {
   const encodedName = encodeURIComponent(user.name);
 
   return `
@@ -101,7 +102,7 @@ const sendInvites = async () => {
       },
       subject: 'Påmelding itercage ⚽',
       text: 'Meld deg på cage: https://itercage.app.iterate.no',
-      html: generateHtml(user).replace(/\n/g, '')
+      html: generateInviteEmailHtml(user).replace(/\n/g, '')
     };
   });
 
@@ -121,7 +122,7 @@ router.post('/registered-users', asyncHandler(async (req, res) => {
     return res.end();
   }
 
-  await addRegisteredUser(name, isAttending);
+  await setRegisteredUser(name, isAttending);
 
   if (isAttending) {
     await incrementTop(name)
@@ -132,7 +133,7 @@ router.post('/registered-users', asyncHandler(async (req, res) => {
   res.end();
 }));
 
-router.delete('/registered-users', asyncHandler(async (req, res) => {
+router.delete('/registered-users', middleware.validateAuthToken, asyncHandler(async (req, res) => {
   const {name} = req.body;
 
   const existingUser = await getExistingUser(name);
@@ -149,7 +150,7 @@ router.delete('/registered-users', asyncHandler(async (req, res) => {
   res.end();
 }));
 
-router.get('/send-invites', asyncHandler(async (req, res) => {
+router.get('/send-invites', middleware.validateAuthToken, asyncHandler(async (req, res) => {
   if (process.env.NODE_ENV === 'production') {
     sendInvites();
   }
@@ -157,7 +158,7 @@ router.get('/send-invites', asyncHandler(async (req, res) => {
   res.end();
 }));
 
-router.get('/reset', asyncHandler(async (req, res) => {
+router.get('/reset', middleware.validateAuthToken, asyncHandler(async (req, res) => {
 
   let batch = firestore.batch();
 

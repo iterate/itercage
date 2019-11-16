@@ -24,6 +24,7 @@ COPY bin bin/
 COPY logger.js .
 COPY server.js .
 COPY routes.js .
+COPY middleware.js .
 COPY setup-firebase.js .
 
 EXPOSE 3000

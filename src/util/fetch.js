@@ -1,4 +1,5 @@
 import { Non2xxResponseError } from './errors';
+import * as firebase from "firebase";
 
 const isJson = response => {
   const contentType = response.headers.get('content-type');
@@ -8,6 +9,14 @@ const isJson = response => {
 
 async function itercageFetch(path, options = {}) {
   const { headers = {} } = options;
+
+  const idToken =
+    firebase.auth().currentUser &&
+    (await firebase.auth().currentUser.getIdToken());
+
+  if (idToken) {
+    headers['Authorization'] = `Bearer ${idToken}`;
+  }
 
   const response = await fetch(path, {
     ...options,
