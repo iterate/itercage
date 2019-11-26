@@ -116,7 +116,7 @@ const sendInvites = async () => {
 router.post('/registered-users', asyncHandler(async (req, res) => {
   const {name, isAttending} = req.body;
 
-  const existingUser = getExistingUser(name);
+  const existingUser = await getExistingUser(name);
 
   if (existingUser && (existingUser.isAttending === isAttending)) {
     return res.end();

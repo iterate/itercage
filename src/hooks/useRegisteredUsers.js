@@ -15,8 +15,8 @@ const useRegisteredUsers = () => {
         }
       });
 
-      const attendees = registeredUsers && Object.values(registeredUsers).filter(registeredUser => registeredUser.isAttending).sort((a, b) => a.timestamp - b.timestamp) || [];
-      const nonAttendees = registeredUsers && Object.values(registeredUsers).filter(registeredUser => !registeredUser.isAttending).sort((a, b) => a.timestamp - b.timestamp) || [];
+      const attendees = (registeredUsers && Object.values(registeredUsers).filter(registeredUser => registeredUser.isAttending).sort((a, b) => a.timestamp - b.timestamp)) || [];
+      const nonAttendees = (registeredUsers && Object.values(registeredUsers).filter(registeredUser => !registeredUser.isAttending).sort((a, b) => a.timestamp - b.timestamp)) || [];
 
       setRegisteredUsers({
         attendees,
