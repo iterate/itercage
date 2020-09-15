@@ -53,6 +53,35 @@ const NewAttendee = () => {
   )
 };
 
+const TimePlaceInfo = () => {
+  var daysUntilChange = () => {
+    const now = new Date();
+    const changeAt = new Date("2020-10-10");
+    const msPerDay = 1000 * 60 * 60 * 24
+    return Math.floor((to.getTime() - from.getTime()) / msPerDay);
+  }
+
+  var beforeChange = {
+    slot: "Cageball Nydalen – mandager kl. 20:45",
+    warn: `Nytt tidspunkt om ${daysBetween(now, changeAt)} dager.`
+  }
+
+  var afterChange = {
+    slot: "Cageball Nydalen – mandager kl. 20:00 (kan du kontrollere, Brynjar?)",
+  }
+
+  if (daysUntillChange > 0) {
+    return (<>
+              <p className="subtitle">{beforeChange.slot}</p>
+              <p className="subtitle">{beforeChange.warn}</p>
+            </>);
+  } else {
+    return (<>
+              <p className="subtitle">{beforeChange.slot}</p>
+            </>);
+  }
+}
+
 export default ({location}) => {
   const {attendees} = useRegisteredUsers();
   const [answerRegistered, setAnswerRegistered] = useState(false);
@@ -79,17 +108,19 @@ export default ({location}) => {
     <>
       <img src={logo} className="logo" alt="logo" />
 
-        <p className="subtitle">Cageball Nydalen – mandager kl. 20:45</p>
+      <TimePlaceInfo />
 
-        <br />
+      <p className="subtitle">Cageball Nydalen – mandager kl. 20:45</p>
 
-        {answerRegistered && <InfoAlert message="Takk. Ditt svar er registrert." />}
+      <br />
 
-        <br />
+      {answerRegistered && <InfoAlert message="Takk. Ditt svar er registrert." />}
 
-        <NewAttendee />
+      <br />
 
-        <Attendees attendees={attendees} showRemoveAttendeeButtons={false}/>
+      <NewAttendee />
+
+      <Attendees attendees={attendees} showRemoveAttendeeButtons={false}/>
     </>
   )
 }
