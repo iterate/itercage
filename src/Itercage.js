@@ -77,7 +77,7 @@ const TimePlaceInfo = () => {
             </>);
   } else {
     return (<>
-              <p className="subtitle">{beforeChange.slot}</p>
+              <p className="subtitle">{afterChange.slot}</p>
             </>);
   }
 }
