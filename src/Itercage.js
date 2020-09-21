@@ -1,26 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import { isAfter, parseISO } from 'date-fns';
 import queryString from 'query-string';
-
+import React, { useEffect, useState } from 'react';
+import { InfoAlert } from './components/Alerts';
+import Attendees from './components/Attendees';
+import Loading from './components/Loading';
+import useRegisteredUsers from './hooks/useRegisteredUsers';
 import logo from './logo.png';
 import fetch from './util/fetch';
-import Attendees from "./components/Attendees";
-import useRegisteredUsers from "./hooks/useRegisteredUsers";
-import Loading from "./components/Loading";
-import {InfoAlert} from "./components/Alerts";
 
 const addAttendee = (name) => {
-  return fetch.post(`/api/registered-users`, {name, isAttending: true});
+  return fetch.post(`/api/registered-users`, { name, isAttending: true });
 };
 
 const addNonAttendee = (name) => {
-  return fetch.post(`/api/registered-users`, {name, isAttending: false});
+  return fetch.post(`/api/registered-users`, { name, isAttending: false });
 };
 
 const NewAttendee = () => {
-  const [ name, setName ] = useState('');
-  const [ updating, setUpdating ] = useState(false);
+  const [name, setName] = useState('');
+  const [updating, setUpdating] = useState(false);
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     if (name === '') {
@@ -38,34 +38,38 @@ const NewAttendee = () => {
   return (
     <form onSubmit={onSubmit} name="newAttendee" className="new-attendee">
       <div className="attendee-group">
-        <input type="text"
-               name="name"
-               className="attendee-input"
-               placeholder="Navn"
-               value={name}
-               onChange={e => setName(e.target.value)}
-               disabled={updating}
-               autoComplete="off"
-               autoFocus />
-          <button className="submit-attendee" type="submit" disabled={updating || name.length === 0}>Meld meg på</button>
+        <input
+          type="text"
+          name="name"
+          className="attendee-input"
+          placeholder="Navn"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          disabled={updating}
+          autoComplete="off"
+          autoFocus
+        />
+        <button className="submit-attendee" type="submit" disabled={updating || name.length === 0}>
+          Meld meg på
+        </button>
       </div>
     </form>
-  )
+  );
 };
 
-export default ({location}) => {
-  const {attendees} = useRegisteredUsers();
+export default ({ location }) => {
+  const { attendees } = useRegisteredUsers();
   const [answerRegistered, setAnswerRegistered] = useState(false);
+  const isNewStarttime = isAfter(new Date(), parseISO('2020-10-11T00:00:00Z'));
 
   useEffect(() => {
-    const {a: answer, n: name} = queryString.parse(location.search);
+    const { a: answer, n: name } = queryString.parse(location.search);
 
     if (name && answer) {
-
       if (answer === 'y') {
-        addAttendee(name)
+        addAttendee(name);
       } else {
-        addNonAttendee(name)
+        addNonAttendee(name);
       }
       setAnswerRegistered(true);
     }
@@ -79,17 +83,25 @@ export default ({location}) => {
     <>
       <img src={logo} className="logo" alt="logo" />
 
-        <p className="subtitle">Cageball Nydalen – mandager kl. 20:45</p>
+      <p className="subtitle">
+        Cageball Nydalen – mandager kl. 20:{isNewStarttime ? '00' : '45'}
+        {isNewStarttime && (
+          <>
+            <br />
+            Bane: Innovation Support
+          </>
+        )}
+      </p>
 
-        <br />
+      <br />
 
-        {answerRegistered && <InfoAlert message="Takk. Ditt svar er registrert." />}
+      {answerRegistered && <InfoAlert message="Takk. Ditt svar er registrert." />}
 
-        <br />
+      <br />
 
-        <NewAttendee />
+      <NewAttendee />
 
-        <Attendees attendees={attendees} showRemoveAttendeeButtons={false}/>
+      <Attendees attendees={attendees} showRemoveAttendeeButtons={false} />
     </>
-  )
-}
+  );
+};
