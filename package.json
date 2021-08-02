@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "date-fns": "^2.7.0",
     "debug": "^4.1.1",
