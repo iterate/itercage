@@ -158,7 +158,16 @@ router.post(
       if (process.env.SLACK_HOOK_URL) {
         const count = await getAttendeesCount();
         axios.post(process.env.SLACK_HOOK_URL, {
-          attachments: [{ text: `"${name}" er med! ${count} påmeldte` }],
+          text: `*${name}* er med! ${count} påmeldte`,
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `*${name}* er med! 💪\n${count} påmeldte${count === 8 ? ' 🥳' : ''}`,
+              },
+            },
+          ],
         });
       }
     } else if (existingUser && existingUser.isAttending && !isAttending) {
