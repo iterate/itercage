@@ -3,6 +3,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler');
 const sendgrid = require('@sendgrid/mail');
 const { isAfter, parseISO } = require('date-fns');
+const axios = require('axios');
 const middleware = require('./middleware');
 
 const logger = require('./logger');
@@ -123,6 +124,21 @@ const sendInvites = async () => {
   }
 };
 
+async function getRemainingSpots() {
+  try {
+    const registered = await firestore
+      .collection('registered-users')
+      .get()
+      .then((snap) => snap.docs.map((doc) => doc.data()));
+
+    const attendees = registered.filter((x) => x.isAttending);
+
+    return 8 - attendees.length;
+  } catch (error) {
+    return '🤷‍♂️';
+  }
+}
+
 router.post(
   '/registered-users',
   asyncHandler(async (req, res) => {
@@ -138,6 +154,11 @@ router.post(
 
     if (isAttending) {
       await incrementTop(name);
+
+      const remainingSpots = await getRemainingSpots();
+      axios.post('https://hooks.slack.com/services/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', {
+        attachments: [{ text: `${name} er med! ${remainingSpots} plasser igjen` }],
+      });
     } else if (existingUser && existingUser.isAttending && !isAttending) {
       await decrementTop(name);
     }
