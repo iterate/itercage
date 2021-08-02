@@ -124,7 +124,7 @@ const sendInvites = async () => {
   }
 };
 
-async function getRemainingSpots() {
+async function getAttendeesCount() {
   try {
     const registered = await firestore
       .collection('registered-users')
@@ -133,7 +133,7 @@ async function getRemainingSpots() {
 
     const attendees = registered.filter((x) => x.isAttending);
 
-    return 8 - attendees.length;
+    return attendees.length;
   } catch (error) {
     return '🤷‍♂️';
   }
@@ -156,9 +156,9 @@ router.post(
       await incrementTop(name);
 
       if (process.env.SLACK_HOOK_URL) {
-        const remainingSpots = await getRemainingSpots();
+        const count = await getAttendeesCount();
         axios.post(process.env.SLACK_HOOK_URL, {
-          attachments: [{ text: `${name} er med! ${remainingSpots} plasser igjen` }],
+          attachments: [{ text: `"${name}" er med! ${count} påmeldte` }],
         });
       }
     } else if (existingUser && existingUser.isAttending && !isAttending) {
