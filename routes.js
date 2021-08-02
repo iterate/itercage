@@ -155,10 +155,12 @@ router.post(
     if (isAttending) {
       await incrementTop(name);
 
-      const remainingSpots = await getRemainingSpots();
-      axios.post('https://hooks.slack.com/services/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', {
-        attachments: [{ text: `${name} er med! ${remainingSpots} plasser igjen` }],
-      });
+      if (process.env.SLACK_HOOK_URL) {
+        const remainingSpots = await getRemainingSpots();
+        axios.post(process.env.SLACK_HOOK_URL, {
+          attachments: [{ text: `${name} er med! ${remainingSpots} plasser igjen` }],
+        });
+      }
     } else if (existingUser && existingUser.isAttending && !isAttending) {
       await decrementTop(name);
     }

@@ -5,13 +5,14 @@ readiness_path = "/api/health"
 build_in_kubernetes = true
 
 [env.common]
-FIREBASE_PRIVATE_KEY={ secret = "firebase", key = "private_key" }
-SENDGRID_API_KEY={ secret = "email", key = "sendgrid_api_key" }
+FIREBASE_PRIVATE_KEY = {secret = "firebase", key = "private_key"}
+SENDGRID_API_KEY = {secret = "email", key = "sendgrid_api_key"}
+SLACK_HOOK_URL = {encrypted = "m6VmbwMNTEolLL0OG2juEJXUuGmhr4LYwiMP1abALSGyBmkuiZNgaeTSdXmatAfwFfbT1FWJdoy6IZXvLwKognu152D5B7oSQBQXwWfdlByLTeh9sFK7LS2cuCKcwW_qVtcQT-8yHztEi9NIyTUHH5vTu8wsBsagPIuxGQU7sb3s-quoFa8JWPby-oTgi83HKQ0RNVnca-M5ZrsDvea4HkLO7QeCdUZV-DfNYtO_QlK9AYn6-Q"}
 
 [env.test]
-FIREBASE_PROJECT_ID="noba-dev"
-FIREBASE_CLIENT_EMAIL="noba-cms@noba-dev.iam.gserviceaccount.com"
+FIREBASE_CLIENT_EMAIL = "noba-cms@noba-dev.iam.gserviceaccount.com"
+FIREBASE_PROJECT_ID = "noba-dev"
 
 [env.prod]
-FIREBASE_PROJECT_ID="itercage-d4495"
-FIREBASE_CLIENT_EMAIL="firebase-adminsdk-pfxiu@itercage-d4495.iam.gserviceaccount.com"
+FIREBASE_CLIENT_EMAIL = "firebase-adminsdk-pfxiu@itercage-d4495.iam.gserviceaccount.com"
+FIREBASE_PROJECT_ID = "itercage-d4495"
