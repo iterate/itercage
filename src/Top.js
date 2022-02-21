@@ -10,7 +10,11 @@ export default () => {
   useEffect(() => {
     database.collection('top').onSnapshot(snapshot => {
       const toplist = snapshot.docs.map(doc => doc.data()).sort((a, b) => b.count - a.count);
-      setToplist((toplist && Object.values(toplist)) || []);
+      let editedList = (toplist && Object.values(toplist)) || [];
+      editedList[0] += "🥇";
+      editedList[1] += "🥈";
+      editedList[2] += "🥉"; 
+      setToplist(editedList);
 
       setLoading(false);
     })
