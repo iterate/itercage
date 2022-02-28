@@ -2,7 +2,6 @@ const admin = require('firebase-admin');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 const sendgrid = require('@sendgrid/mail');
-const { isAfter, parseISO } = require('date-fns');
 const axios = require('axios');
 const middleware = require('./middleware');
 
@@ -68,8 +67,6 @@ const decrementTop = async (name) => {
 const generateInviteEmailHtml = (user) => {
   const encodedName = encodeURIComponent(user.name);
 
-  const isNewStarttime = isAfter(new Date(), parseISO('2020-10-11T00:00:00Z'));
-
   return `
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -78,8 +75,8 @@ const generateInviteEmailHtml = (user) => {
   </head>
   <body>
     <h1>Itercage</h1>
-    <p>Cageball Nydalen - Mandager kl. 20:${isNewStarttime ? '00' : '45'}</p>
-    ${isNewStarttime ? '<p style="font-size: 32px; font-weight: 900; color: red;">NB! Ny starttid kl. 20:00</p>' : ''}
+    <p>Cageball Nydalen - Mandager kl. 20:00</p>
+    <p style="font-size: 32px; font-weight: 900;">Starttid kl. 20:00</p>
     <h3>Hei ${user.name}</h3>
     <p>Bli med på cageball?</p>
     <p>
