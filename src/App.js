@@ -1,10 +1,10 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Admin from './Admin';
 import './App.css';
+import { ProvideAuth } from './hooks/useAuth';
 import Itercage from './Itercage';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Top from "./Top";
-import Admin from "./Admin";
-import {ProvideAuth} from "./hooks/useAuth";
+import Top from './Top';
 
 function App() {
   return (

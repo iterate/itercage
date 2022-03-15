@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import * as firebase from "firebase/app";
-import "firebase/auth"
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const authContext = createContext();
 
@@ -21,20 +21,20 @@ function useProvideAuth() {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
+      .then((response) => {
         setUser(response.user);
         return response.user;
       });
   };
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
       } else {
         setUser(false);
       }
-      setLoading(false)
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -43,6 +43,6 @@ function useProvideAuth() {
   return {
     user,
     loading,
-    signin
+    signin,
   };
 }

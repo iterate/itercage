@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import './firebase';
 import App from './App';
+import './firebase';
 
 ReactDOM.render(<App />, document.getElementById('root'));

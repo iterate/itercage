@@ -1,7 +1,7 @@
+import * as firebase from 'firebase';
 import { Non2xxResponseError } from './errors';
-import * as firebase from "firebase";
 
-const isJson = response => {
+const isJson = (response) => {
   const contentType = response.headers.get('content-type');
 
   return contentType && contentType.indexOf('application/json') !== -1;
@@ -10,9 +10,7 @@ const isJson = response => {
 async function itercageFetch(path, options = {}) {
   const { headers = {} } = options;
 
-  const idToken =
-    firebase.auth().currentUser &&
-    (await firebase.auth().currentUser.getIdToken());
+  const idToken = firebase.auth().currentUser && (await firebase.auth().currentUser.getIdToken());
 
   if (idToken) {
     headers['Authorization'] = `Bearer ${idToken}`;
@@ -23,13 +21,11 @@ async function itercageFetch(path, options = {}) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...headers
-    }
+      ...headers,
+    },
   });
 
-  const responseContent = isJson(response)
-    ? await response.json()
-    : await response.text();
+  const responseContent = isJson(response) ? await response.json() : await response.text();
 
   if (response.ok) {
     return responseContent;
@@ -43,19 +39,19 @@ async function itercageFetch(path, options = {}) {
 }
 
 export default {
-  get: path => {
+  get: (path) => {
     return itercageFetch(path);
   },
   post: (path, data) => {
     return itercageFetch(path, {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   },
   delete: (path, data) => {
     return itercageFetch(path, {
       method: 'DELETE',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
-  }
+  },
 };

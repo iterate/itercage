@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export const InfoAlert = ({message}) => {
+export const InfoAlert = ({ message }) => {
   return (
     <div className="alert alert-info" role="alert">
       {message}
@@ -8,7 +8,7 @@ export const InfoAlert = ({message}) => {
   );
 };
 
-export const DangerAlert = ({message}) => {
+export const DangerAlert = ({ message }) => {
   return (
     <div className="alert alert-danger" role="alert">
       {message}

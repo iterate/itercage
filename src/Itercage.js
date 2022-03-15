@@ -1,4 +1,3 @@
-import { isAfter, parseISO } from 'date-fns';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { InfoAlert } from './components/Alerts';
@@ -58,9 +57,8 @@ const NewAttendee = () => {
 };
 
 export default ({ location }) => {
-  const { attendees } = useRegisteredUsers();
+  const { attendees, loading } = useRegisteredUsers();
   const [answerRegistered, setAnswerRegistered] = useState(false);
-  const isNewStarttime = isAfter(new Date(), parseISO('2020-10-11T00:00:00Z'));
 
   useEffect(() => {
     const { a: answer, n: name } = queryString.parse(location.search);
@@ -75,7 +73,7 @@ export default ({ location }) => {
     }
   }, [location.search]);
 
-  if (!attendees) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -84,13 +82,9 @@ export default ({ location }) => {
       <img src={logo} className="logo" alt="logo" />
 
       <p className="subtitle">
-        Cageball Nydalen – mandager kl. 20:{isNewStarttime ? '00' : '45'}
-        {isNewStarttime && (
-          <>
-            <br />
-            Bane: Innovation Support
-          </>
-        )}
+        Cageball Nydalen - mandager kl. 20:00
+        <br />
+        Bane: Innovation Support
       </p>
 
       <br />

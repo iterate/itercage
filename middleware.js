@@ -6,8 +6,8 @@ module.exports = {
   validateAuthToken: asyncHandler(async (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
-    const idToken = authHeader && authHeader.startsWith('Bearer ') ?
-      authHeader.slice('Bearer '.length, authHeader.length) : null;
+    const idToken =
+      authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice('Bearer '.length, authHeader.length) : null;
 
     if (idToken) {
       const { uid } = await admin.auth().verifyIdToken(idToken);
@@ -20,5 +20,5 @@ module.exports = {
     }
 
     next();
-  })
+  }),
 };

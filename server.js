@@ -9,24 +9,26 @@ const logger = require('./logger');
 
 const app = express();
 
-app.use(morgan('tiny', {
-  skip: req => req.url === '/api/health' || req.url.startsWith('/static') || req.url === '/favicon.ico',
-  stream: logger.stream
-}));
+app.use(
+  morgan('tiny', {
+    skip: (req) => req.url === '/api/health' || req.url.startsWith('/static') || req.url === '/favicon.ico',
+    stream: logger.stream,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/api/health', (req, res) => {
-  res.send('healthy!')
+  res.send('healthy!');
 });
 
 app.use('/api', routes);
 
-app.use(express.static(path.join(__dirname, "/build")));
+app.use(express.static(path.join(__dirname, '/build')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/build/index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/build/index.html'));
 });
 
 app.use((err, req, res) => {

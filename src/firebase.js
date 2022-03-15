@@ -2,13 +2,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB5jGnRYQwnndbkE90LAOzksbWmUqrMP-0",
-  authDomain: "itercage-d4495.firebaseapp.com",
-  databaseURL: "https://itercage-d4495.firebaseio.com",
-  projectId: "itercage-d4495",
-  storageBucket: "itercage-d4495.appspot.com",
-  messagingSenderId: "336717893649",
-  appId: "1:336717893649:web:914cdeb9323bba7723e1b0"
+  apiKey: 'AIzaSyB5jGnRYQwnndbkE90LAOzksbWmUqrMP-0',
+  authDomain: 'itercage-d4495.firebaseapp.com',
+  databaseURL: 'https://itercage-d4495.firebaseio.com',
+  projectId: 'itercage-d4495',
+  storageBucket: 'itercage-d4495.appspot.com',
+  messagingSenderId: '336717893649',
+  appId: '1:336717893649:web:914cdeb9323bba7723e1b0',
 };
 
 // Initialize Firebase
