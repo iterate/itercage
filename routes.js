@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 const express = require('express');
 const asyncHandler = require('express-async-handler');
-const sendgrid = require('@sendgrid/mail');
+const postmark = require('postmark');
 const axios = require('axios');
 const middleware = require('./middleware');
 
@@ -14,9 +14,9 @@ const firestore = admin.firestore();
 const increment = admin.firestore.FieldValue.increment(1);
 const decrement = admin.firestore.FieldValue.increment(-1);
 
-if (process.env.SENDGRID_API_KEY) {
-  sendgrid.setApiKey(process.env.SENDGRID_API_KEY.replace(/\n/g, ''));
-}
+const postmarkClient = new postmark.ServerClient(
+  process.env.POSTMARK_API_TOKEN
+);
 
 const encodeName = (name) => {
   return Buffer.from(name).toString('base64');
@@ -103,19 +103,16 @@ const sendInvites = async () => {
     const user = doc.data();
 
     return {
-      to: user.email,
-      from: {
-        email: 'cage@fodmapnorge.no',
-        name: 'itercage',
-      },
-      subject: 'Påmelding itercage ⚽',
-      text: 'Meld deg på cage: https://itercage.app.iterate.no',
-      html: generateInviteEmailHtml(user).replace(/\n/g, ''),
+      To: user.email,
+      From: 'cage@noba.app',
+      Subject: 'Påmelding itercage ⚽',
+      TextBody: 'Meld deg på cage: https://itercage.app.iterate.no',
+      HtmlBody: generateInviteEmailHtml(user).replace(/\n/g, ''),
     };
   });
 
   try {
-    await sendgrid.send(emails);
+    await postmarkClient.sendEmailBatch(emails)
   } catch (e) {
     logger.error(e);
   }

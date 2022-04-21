@@ -6,7 +6,7 @@ build_in_kubernetes = true
 
 [env.common]
 FIREBASE_PRIVATE_KEY = {secret = "firebase", key = "private_key"}
-SENDGRID_API_KEY = {secret = "email", key = "sendgrid_api_key"}
+POSTMARK_API_TOKEN = { encrypted = "Ygv17Jhl61Ovvh_ZCwEkl3QK7w4RERZdYq58uPESzkpsA49MbVQnM9qEOd1zgYRZWxu-HVwn-IBihDDfZm5Wm2Hf4CeNtO3xy0d0my-x1JaYSNGD5B3f4nXQgAVW0VJtocE-B43Ke6tecsFcRIhBIb14Mz50V8DLSvbB6xY" }
 SLACK_HOOK_URL = {encrypted = "m6VmbwMNTEolLL0OG2juEJXUuGmhr4LYwiMP1abALSGyBmkuiZNgaeTSdXmatAfwFfbT1FWJdoy6IZXvLwKognu152D5B7oSQBQXwWfdlByLTeh9sFK7LS2cuCKcwW_qVtcQT-8yHztEi9NIyTUHH5vTu8wsBsagPIuxGQU7sb3s-quoFa8JWPby-oTgi83HKQ0RNVnca-M5ZrsDvea4HkLO7QeCdUZV-DfNYtO_QlK9AYn6-Q"}
 
 [env.test]
